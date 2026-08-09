@@ -1,0 +1,202 @@
+# ═══════════════════════════════════════════════════════════════
+# BLOQUE RECONSTRUCCIÓN — 4 SEMANAS (Luciano)
+# ═══════════════════════════════════════════════════════════════
+# Fuente de datos:
+#   - Esqueleto_Bloque_Reconstruccion.xlsx  → cargas/reps por semana (S1→S4)
+#   - Plan_Entrenamiento_Agosto.xlsx (Semana 1) → layout completo del día
+#
+# Lógica: S1 base → S2-S3 suben carga/reps → S4 descarga (deload).
+# Cargas orientativas (±2,5 kg según sensaciones · RPE 6-8, nunca al fallo).
+#
+# Estructura de cada día:
+#   secciones: lista ordenada de bloques.
+#     - header: título del bloque (CALENTAMIENTO, FUERZA, CORE, ...)
+#       items:      líneas fijas (iguales todas las semanas)
+#       ejercicios: líneas que cambian por semana
+#         - nombre: nombre del ejercicio
+#           nota:   cue técnico fijo (se agrega en todas las semanas)  [opcional]
+#           semanas: [S1, S2, S3, S4]  ← carga/esquema por semana
+# ═══════════════════════════════════════════════════════════════
+
+meta:
+  nombre: "Bloque Reconstrucción"
+  atleta: "Luciano"
+  tema: "arena"
+  total_semanas: 4
+  semana_deload: 4
+  nota_global: "Rodilla izq (operada + artrosis): emparejar antes de cargar · arrancá las series por la izquierda · «sin dolor» manda · sin impacto."
+  fases:
+    - "Base"
+    - "Progresión 1"
+    - "Progresión 2"
+    - "Descarga (deload)"
+
+dias:
+
+  # ─────────────────────────────────────────────────────────────
+  A:
+    titulo: "DÍA A"
+    subtitulo: "LOWER · Glúteo/Femoral + rodilla"
+    duracion: "~75 min"
+    secciones:
+      - header: "CALENTAMIENTO"
+        items:
+          - "Bici suave — 4 min"
+          - "Abducción cadera acostado de lado — 2×15/lado"
+          - "Glute bridge — 2×15 · pausa 1s arriba"
+          - "Dead bug — 2×10/lado"
+
+      - header: "ISOMETRÍA · tendón rotuliano"
+        ejercicios:
+          - nombre: "Wall sit (~60°)"
+            nota: "desc 60s"
+            semanas: ["5×40s", "5×45s", "5×50s", "4×40s (deload)"]
+
+      - header: "FUERZA · bisagra de cadera"
+        ejercicios:
+          - nombre: "Hip thrust"
+            nota: "2s pausa · RPE 7 · igualar/superar"
+            semanas: ["60 kg · 3×12", "62,5 kg · 3×12", "65 kg · 3×10-12", "60 kg · 3×10"]
+          - nombre: "RDL con barra"
+            nota: "3s bajando · RPE 6-7 · completar las reps limpias"
+            semanas: ["50-52,5 kg · 3×10", "55 kg · 3×10", "57,5 kg · 3×8-10", "50 kg · 3×10"]
+
+      - header: "UNILATERAL + ESTABILIDAD · empezá por izquierda"
+        ejercicios:
+          - nombre: "Split squat (pie atrás en piso)"
+            nota: "rodilla al dedo gordo"
+            semanas: ["12,5 kg · 2×8/pierna", "12,5 kg · 3×8", "15 kg · 3×8", "12,5 kg · 2×8"]
+          - nombre: "RDL a una pierna"
+            nota: "glúteo medio"
+            semanas: ["2×12,5 kg · 2×8/pierna", "2×12,5 kg · 3×8", "2×15 kg · 3×8", "2×12,5 kg · 2×8"]
+          - nombre: "Curl femoral"
+            nota: "control"
+            semanas: ["3×8-10", "3×10", "3×10-12", "3×8"]
+
+      - header: "CORE"
+        items:
+          - "Plancha frontal — 3×30s"
+          - "Plancha lateral — 3×20s/lado"
+          - "Pallof press en polea — 2×10/lado"
+
+  # ─────────────────────────────────────────────────────────────
+  B:
+    titulo: "DÍA B"
+    subtitulo: "UPPER · Hombro-safe + brazos"
+    duracion: "~75-80 min"
+    secciones:
+      - header: "CALENTAMIENTO + HOMBRO"
+        items:
+          - "Bici o remo suave — 3 min"
+          - "Reverse fly inclinado (mancuernas livianas) — 2×20"
+          - "Rotación externa en polea — 2×15/lado · liviano (codo pegado)"
+          - "Face pull en polea — 2×20"
+          - "Prone IYT — 2×5 c/letra · sin peso"
+
+      - header: "TRACCIÓN VERTICAL"
+        ejercicios:
+          - nombre: "Chin-ups / dominadas estrictas"
+            nota: "2s bajando · RPE 7-8"
+            semanas: ["4×6", "4×7", "4×8 (o +peso)", "3×6 (deload)"]
+
+      - header: "EMPUJE DE PECHO + ESPALDA"
+        ejercicios:
+          - nombre: "Cruce bajo en polea (unilateral)"
+            semanas: ["10-12,5 kg · 3×12-15", "12,5 kg · 3×12", "15 kg · 3×10-12", "12,5 kg · 3×12"]
+          - nombre: "Push-ups"
+            semanas: ["3×12", "3×15", "Pies elevados · 3×12", "3×12"]
+          - nombre: "Remo en máquina / mancuerna"
+            nota: "sin encoger hombro"
+            semanas: ["3×10-12", "3×12", "+carga · 3×10", "3×10"]
+
+      - header: "BRAZOS"
+        ejercicios:
+          - nombre: "Curl bíceps barra W"
+            semanas: ["5-6 kg/lado · 3×10-12", "6 kg · 3×12", "7 kg · 3×10-12", "6 kg · 3×10"]
+          - nombre: "Curl martillo"
+            semanas: ["8 kg · 3×12", "9 kg · 3×12", "10 kg · 3×10-12", "8 kg · 3×12"]
+          - nombre: "Tríceps pushdown (polea)"
+            semanas: ["25-27,5 kg · 3×12-15", "27,5 kg · 3×12", "30 kg · 3×10-12", "27,5 kg · 3×12"]
+          - nombre: "Tríceps tras nuca (polea)"
+            semanas: ["15 kg · 2×12", "15 kg · 3×12", "17,5 kg · 3×12", "15 kg · 2×12"]
+
+      - header: "CORE / HOMBRO"
+        items:
+          - "Pallof press en polea — 2×10/lado"
+          - "Plancha lateral — 2×20s/lado"
+          - "Rotación externa en polea — 1×20/lado · liviano (manguito)"
+
+  # ─────────────────────────────────────────────────────────────
+  C:
+    titulo: "DÍA C"
+    subtitulo: "ZONA 2 · Aeróbico (bici · RPM crucero 38)"
+    duracion: "~45-55 min"
+    secciones:
+      - header: "CALENTAMIENTO"
+        items:
+          - "Bici muy suave (progresivo) — 8 min (últimos 2 min: 3-4 aceleraciones 10s)"
+
+      - header: "ZONA 2 · EMOM"
+        ejercicios:
+          - nombre: "Formato"
+            semanas: ["EMOM 20 min", "EMOM 24 min", "EMOM 20 min", "EMOM 16 min (descarga)"]
+          - nombre: "Trabajo / descanso"
+            semanas: ["50s / 10s", "50s / 10s", "55s / 5s", "45s / 15s"]
+          - nombre: "Intensidad"
+            semanas: ["38 RPM", "38 RPM", "38 RPM", "38 RPM (suave)"]
+
+      - header: "REGLAS"
+        items:
+          - "Min impares: pedaleo a RPM crucero (38) + transición"
+          - "Min pares: muy suave (remover lactato) + descanso"
+          - "RPM parejo (38) · exhalar largo en recuperación · piernas NO deben quemar"
+
+      - header: "CIERRE"
+        items:
+          - "Vuelta a la calma — 5 min · movilidad cadera/tobillo"
+
+  # ─────────────────────────────────────────────────────────────
+  D:
+    titulo: "DÍA D"
+    subtitulo: "LOWER · Sentadilla + step-up lateral"
+    duracion: "~75 min"
+    secciones:
+      - header: "CALENTAMIENTO"
+        items:
+          - "Bici suave — 3 min"
+          - "Abducción cadera acostado de lado — 2×15/lado"
+          - "Glute bridge — 2×12 · pausa 1s"
+          - "Sentadilla al aire — 2×10 · rango sin dolor"
+
+      - header: "ISOMETRÍA"
+        ejercicios:
+          - nombre: "Wall sit (~60°)"
+            nota: "desc 60s"
+            semanas: ["3×45s", "3×50s", "3×55s", "3×40s"]
+
+      - header: "FUERZA · patrón sentadilla"
+        ejercicios:
+          - nombre: "Front squat (goblet o barra)"
+            nota: "2s bajando · RPE 6-7"
+            semanas: ["40-42,5 kg · 3×10", "45 kg · 3×10", "47,5 kg · 3×8-10", "40 kg · 3×10"]
+          - nombre: "Curl femoral unilateral en máquina"
+            nota: "empezá por izq"
+            semanas: ["3×8-10/pierna", "3×10", "3×10-12", "3×8"]
+
+      - header: "ESTABILIDAD + GLÚTEO MEDIO · foco rodilla izq"
+        ejercicios:
+          - nombre: "Step-up lateral (cajón 20-25 cm · db)"
+            nota: "empezá por izq · bajá 2-3s"
+            semanas: ["10 kg · DER 3×10 / IZQ 4×10", "10 kg · 3×10 ambas *", "12,5 kg · 3×10", "10 kg · 2×10"]
+          - nombre: "Hip thrust"
+            nota: "igualar Día A"
+            semanas: ["60 kg · 3×12", "62,5 kg · 3×12", "65 kg · 3×10-12", "60 kg · 3×10"]
+
+      - header: "CORE"
+        items:
+          - "Plancha frontal — 3×30s"
+          - "Plancha lateral — 3×20s/lado"
+
+      - header: "NOTA STEP-UP"
+        items:
+          - "* Step-up S2: pasar a 3×10 en ambas piernas SOLO cuando la izquierda iguale a la derecha; si aún cuesta, seguí con la serie extra en izq."

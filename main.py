@@ -14,6 +14,8 @@ from src.models import Atleta
 from src.week_builder import WeekBuilder
 from src.excel_exporter import ExcelExporter
 from src.rm_calculator import reporte_pesos
+from src.bloque_builder import BloqueBuilder
+from src.bloque_exporter import BloqueExporter
 
 
 MESES_ES = [
@@ -92,9 +94,10 @@ def menu_principal():
     print("\n  1 │ Generar semana de entrenamiento")
     print("  2 │ Ver ciclo completo (resumen)")
     print("  3 │ Ver RM y pesos por semana")
-    print("  4 │ Salir")
+    print("  4 │ Generar semana de Reconstrucción")
+    print("  5 │ Salir")
 
-    return input("\n  → Opción (1-4): ").strip()
+    return input("\n  → Opción (1-5): ").strip()
 
 
 def seleccionar_atleta() -> Atleta:
@@ -348,6 +351,65 @@ def flujo_ver_pesos():
           f"BS={atleta.rm.get('back_squat_cuadriceps',0)}kg")
 
 
+def flujo_generar_reconstruccion():
+    """Flujo para generar una semana del Bloque Reconstrucción (4 semanas)."""
+    builder = BloqueBuilder()
+    prog = builder.program
+
+    print("\n" + "─" * 52)
+    print(f"  🦵 {prog.nombre.upper()} — {prog.atleta} · {builder.total_semanas} semanas")
+    print("─" * 52)
+    for r in builder.resumen():
+        marca = "  ← deload" if r["deload"] else ""
+        print(f"    S{r['semana']} │ {r['fase']}{marca}")
+
+    try:
+        semana_num = int(input(f"\n  → ¿Qué semana del bloque? (1-{builder.total_semanas}): "))
+    except ValueError:
+        print("  ❌ Ingresá un número")
+        return
+    if not 1 <= semana_num <= builder.total_semanas:
+        print(f"  ❌ Semana inválida (1-{builder.total_semanas})")
+        return
+
+    fecha = pedir_fecha()
+    semana = builder.construir_semana(semana_num)
+
+    # Preview en consola
+    print(f"\n  {'─' * 52}")
+    print(f"  {semana.nombre_bloque.upper()} — SEMANA {semana.numero_semana} de "
+          f"{semana.total_semanas} · {semana.fase}")
+    print(f"  {'─' * 52}")
+    if semana.nota_global:
+        print(f"  ⚠️  {semana.nota_global}")
+    for dia in semana.dias:
+        print(f"\n  📌 {dia.titulo} │ {dia.subtitulo.replace(chr(10), ' · ')}")
+        print(f"  {'·' * 48}")
+        for header, lineas in dia.bloques:
+            print(f"  {header}:")
+            for linea in lineas:
+                print(f"    {linea}")
+
+    # Exportar
+    print(f"\n  {'─' * 52}")
+    if input("  → ¿Exportar a Excel? (s/n): ").strip().lower() != "s":
+        print("  ℹ️  No se exportó a Excel")
+        return
+
+    exporter = BloqueExporter(tema=prog.tema)
+    nombre = f"S{semana.numero_semana}_{prog.nombre.replace(' ', '_')}_{fecha}".replace("/", "-")
+    ruta = exporter.exportar_semana(semana, nombre)
+    print(f"  ✅ Archivo generado: {ruta}")
+
+    if input("  → ¿Subir a Drive como pestaña del maestro? (s/n): ").strip().lower() == "s":
+        d = datetime.strptime(fecha, "%d/%m/%Y")
+        mes = MESES_ES[d.month - 1]
+        nombre_pestana = confirmar_nombre_pestana(fecha)
+        subir_a_drive(ruta, nombre_pestana, f"{mes} - {prog.atleta}", f"{prog.atleta} - {d.year}")
+    else:
+        print("  📱 Podés subir el archivo a Drive manualmente cuando quieras")
+
+
 def main():
     """Punto de entrada principal."""
     while True:
@@ -360,6 +422,8 @@ def main():
         elif opcion == "3":
             flujo_ver_pesos()
         elif opcion == "4":
+            flujo_generar_reconstruccion()
+        elif opcion == "5":
             print("\n  👋 ¡Hasta la próxima! A romperla en el box 💪\n")
             break
         else:
