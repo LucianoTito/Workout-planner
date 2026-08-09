@@ -1,0 +1,19 @@
+# Credenciales de Google — ¡NUNCA subir a GitHub!
+credentials.json
+token.json
+
+# Python
+__pycache__/
+*.py[cod]
+.venv/
+venv/
+env/
+
+# Salida generada
+output/*.xlsx
+
+# Editores / Sistema
+.vscode/
+.idea/
+.DS_Store
+Thumbs.db

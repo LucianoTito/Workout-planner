@@ -1,0 +1,54 @@
+# Progresión de Hip Thrust — por % RM (RM base en perfil del atleta)
+# Se ubica en el Día 1 (Tren Inferior + T2B), junto al Front Squat.
+#
+# Reps más altas que la fuerza base porque es accesorio de glúteo/cadera,
+# no ejercicio de fuerza máxima pura. Sigue la misma periodización general.
+
+semanas:
+  S1:
+    series: 4
+    reps: 10
+    porcentaje_rm: 65
+    descripcion: "4x10 al 65% RM. Tempo: 2\" pausa isométrica arriba"
+
+  S2:
+    series: 4
+    reps: 8
+    porcentaje_rm: 68
+    descripcion: "4x8 al 68% RM. Tempo: 2\" pausa isométrica arriba"
+
+  S3:
+    series: 4
+    reps: 8
+    porcentaje_rm: 72
+    descripcion: "4x8 al 72% RM. Tempo: 2\" pausa isométrica arriba"
+
+  S4:
+    series: 3
+    reps: 10
+    porcentaje_rm: 55
+    descripcion: "Descarga: 3x10 al 55% RM. Liviano y técnico"
+
+  S5:
+    series: 4
+    reps: 6
+    porcentaje_rm: 75
+    descripcion: "4x6 al 75% RM. Foco en potencia de empuje"
+
+  S6:
+    series: 4
+    reps: 6
+    porcentaje_rm: 78
+    descripcion: "4x6 al 78% RM. Carga alta"
+
+  S7:
+    series: 3
+    reps: 5
+    porcentaje_rm: 82
+    descripcion: "3x5 al 82% RM. Pico de fuerza"
+
+  S8:
+    series: 0
+    reps: 0
+    porcentaje_rm: 100
+    descripcion: "¡Testeo de nuevo RM de Hip Thrust!"

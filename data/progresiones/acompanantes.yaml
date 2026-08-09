@@ -1,0 +1,88 @@
+# Acompañantes de Musculación — ejercicios fijos que van junto a la fuerza base
+#
+# Copenhague Plank → Día 1 (Tren Inferior + T2B), junto a Front Squat + Hip Thrust
+# Sentadilla Búlgara → Día 3 (Fuerza Absoluta), junto a Sumo DL + Back Squat
+#
+# Ambos son fijos (siempre los mismos), progresan por reps/RPE según la semana.
+
+copenhague:
+  nombre: "Copenhague Plank"
+  unidad: "por pierna"
+  semanas:
+    S1:
+      series: 3
+      reps: 10
+      nota: ""
+    S2:
+      series: 3
+      reps: 12
+      nota: ""
+    S3:
+      series: 3
+      reps: 12
+      nota: "Buscar poner peso"
+    S4:
+      series: 3
+      reps: 8
+      nota: "Liviano (descarga)"
+    S5:
+      series: 3
+      reps: 12
+      nota: "Con peso"
+    S6:
+      series: 3
+      reps: 14
+      nota: "Con peso"
+    S7:
+      series: 3
+      reps: 10
+      nota: "Con peso (bajar volumen)"
+    S8:
+      series: 0
+      reps: 0
+      nota: "Semana de testeo"
+
+bulgara:
+  nombre: "Sentadilla Búlgara (enfoque cuádriceps)"
+  unidad: "por pierna"
+  semanas:
+    S1:
+      series: 3
+      reps: 8
+      rpe: 7
+      nota: ""
+    S2:
+      series: 3
+      reps: 8
+      rpe: 8
+      nota: ""
+    S3:
+      series: 3
+      reps: 8
+      rpe: 8
+      nota: "Carga alta"
+    S4:
+      series: 3
+      reps: 8
+      rpe: 5
+      nota: "Liviano (descarga)"
+    S5:
+      series: 3
+      reps: 6
+      rpe: 8
+      nota: "Peso pesado"
+    S6:
+      series: 3
+      reps: 6
+      rpe: 9
+      nota: "Máxima carga"
+    S7:
+      series: 3
+      reps: 6
+      rpe: 8
+      nota: ""
+    S8:
+      series: 0
+      reps: 0
+      rpe: 0
+      nota: "Semana de testeo"

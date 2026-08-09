@@ -1,0 +1,90 @@
+# Progresión de Accesorios de Musculación — Día 5 (Gimnasia + Estética)
+#
+# Batería FIJA de ejercicios: son siempre los mismos, lo que cambia semana a
+# semana es el RPE objetivo y el esquema de series/reps.
+# Se progresan por doble progresión (subir reps en rango, después subir peso),
+# guiado por RPE — tal como se venía haciendo históricamente.
+#
+# El atleta ajusta el peso real en el gym según el RPE indicado.
+
+# ── Batería de ejercicios (orden de ejecución en el día) ──
+# Los ejercicios normales toman series/reps de la progresión semanal (abajo).
+# Un ejercicio con "texto_fijo" ignora esa progresión y usa su propio texto
+# (útil para burnouts, donde las reps son fijas y lo que escala es el peso).
+ejercicios:
+  - id: bstance_rdl
+    nombre: "B-Stance RDL c/ Mancuernas"
+    unidad: "por pierna"
+  - id: hamstring_bridge
+    nombre: "Single-Leg Hamstring Bridge"
+    unidad: "por pierna"
+    nota: "Cadena cerrada, escalable apoyando el pie en altura"
+  - id: superserie_gluteo
+    nombre: "Superserie Glúteo (Burnout)"
+    unidad: ""
+    texto_fijo: "15 Monster Walks/lado (con banda + Kb en front rack) + 20 Frog Pumps"
+    nota: "Escala subiendo el peso de la Kb / tensión de banda, no las reps"
+  - id: landmine_press
+    nombre: "Landmine Press"
+    unidad: "por brazo"
+
+# ── Progresión de RPE y reps por semana ──
+# Cada semana define: esquema general (series x reps) y RPE objetivo.
+# Se aplica a todos los ejercicios de la batería (con matices por ejercicio).
+
+semanas:
+  S1:
+    fase: "Adaptación a Carga"
+    series: 3
+    reps: 12
+    rpe: 6
+    descripcion: "3x12 — RPE 6 (adaptación, técnica)"
+
+  S2:
+    fase: "Intensificación 1"
+    series: 3
+    reps: 10
+    rpe: 7
+    descripcion: "3x10 — RPE 7 (subir peso respecto a S1)"
+
+  S3:
+    fase: "Intensificación 2"
+    series: 3
+    reps: 8
+    rpe: 8
+    descripcion: "3x8 — RPE 8 (carga alta)"
+
+  S4:
+    fase: "Descarga Técnica"
+    series: 2
+    reps: 10
+    rpe: 5
+    descripcion: "2x10 — RPE 5 (liviano, recuperación)"
+
+  S5:
+    fase: "Fuerza Máxima 1"
+    series: 3
+    reps: 8
+    rpe: 8
+    descripcion: "3x8 — RPE 8 (peso pesado)"
+
+  S6:
+    fase: "Fuerza Máxima 2"
+    series: 3
+    reps: 6
+    rpe: 9
+    descripcion: "3x6 — RPE 8-9 (máxima carga en rango)"
+
+  S7:
+    fase: "Pico de Fuerza"
+    series: 2
+    reps: 8
+    rpe: 7
+    descripcion: "2x8 — RPE 7 (bajar volumen, mantener)"
+
+  S8:
+    fase: "TOMA DE MARCAS"
+    series: 0
+    reps: 0
+    rpe: 0
+    descripcion: "Sin accesorios pesados (semana de testeo)"

@@ -1,0 +1,18 @@
+# Perfil de atleta - Datos de RM.xlsx (Julio Semana 5)
+nombre: "Brisa"
+
+rm:
+  front_squat: 90
+  sumo_deadlift: 100
+  back_squat_cuadriceps: 93
+  hip_thrust: 150
+  rumanian_deadlift: 90
+  clean: 65
+  clean_and_jerk: 55   # Referencia de WOD, no testeo formal
+
+crucero_rpm: 44
+
+# Fecha de último testeo de RM
+ultimo_testeo: "2026-07-31"
+
+notas: "RM de Julio Semana 5. Clean & Jerk es referencia de WOD, no testeo."

@@ -1,0 +1,51 @@
+# Progresiones de Pacing - Transcripción exacta de Pacing.xlsx
+# Crucero base se toma del perfil del atleta (ej: 44 RPM)
+
+semanas:
+  S1:
+    formato: "EMOM 16 min"
+    bloque1: "30\" Sprint moderado / 30\" Rest"
+    bloque2: "45\" Pedaleo suave / 15\" Rest"
+    metrica: "Sprint: 50 RPM / Suave: debajo de 35 RPM"
+
+  S2:
+    formato: "EMOM 16 min"
+    bloque1: "40\" Trabajo fuerte / 20\" Rest"
+    bloque2: "40\" Pedaleo suave / 20\" Rest"
+    metrica: "Trabajo: 48 RPM / Suave: debajo de 35 RPM"
+
+  S3:
+    formato: "EMOM 20 min"
+    bloque1: "45\" Trabajo / 15\" Rest"
+    bloque2: "45\" Pedaleo suave / 15\" Rest"
+    metrica: "Clavar las 44 RPM (Crucero) en min impares"
+
+  S4:
+    formato: "Descarga"
+    bloque1: "30\" Trabajo / 30\" Rest"
+    bloque2: "30\" Pedaleo suave / 30\" Rest"
+    metrica: "Mantener 40 RPM en trabajo"
+
+  S5:
+    formato: "EMOM 20 min"
+    bloque1: "50\" Trabajo / 10\" Rest"
+    bloque2: "50\" Pedaleo suave / 10\" Rest"
+    metrica: "Subir +1 RPM (Objetivo 45 RPM)"
+
+  S6:
+    formato: "EMOM 24 min"
+    bloque1: "45\" Trabajo / 15\" Rest"
+    bloque2: "45\" Pedaleo suave / 15\" Rest"
+    metrica: "Mantener 45 RPM"
+
+  S7:
+    formato: "Intervalos 4x3'"
+    bloque1: "3 Minutos de Trabajo Continuo"
+    bloque2: "90 Segundos Descanso Pasivo Total"
+    metrica: "Sostener 46 RPM los 3 minutos completos"
+
+  S8:
+    formato: "RE-TEST"
+    bloque1: "Test de 3 Minutos Máximos"
+    bloque2: "—"
+    metrica: "¡Buscar el nuevo RPM de Crucero!"

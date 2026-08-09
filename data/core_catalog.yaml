@@ -1,0 +1,168 @@
+# Catálogo de ejercicios de Core
+# Formato: primero la estructura (Rounds/Tabata), después los ejercicios
+#
+# Cada ejercicio tiene las reps incluidas en el nombre,
+# tal como aparece en el Excel (ej: "10 Dragon Flags")
+
+# ═══════════════════════════════════════════════════════════
+# EJERCICIOS POR CATEGORÍA
+# Los nombres YA INCLUYEN las reps/duración
+# ═══════════════════════════════════════════════════════════
+
+anti_extension:
+  - nombre: "20\"/20\" Plancha lateral con elevación de piernas"
+    intensidad: "media"
+  - nombre: "25\" Hollow hold con rodillas flexionadas"
+    intensidad: "media"
+  - nombre: "30\" Plancha alta y baja de cada una"
+    intensidad: "media"
+  - nombre: "12 Plancha alta con Pallof press"
+    intensidad: "media-alta"
+  - nombre: "Superman con discos fraccionados"
+    intensidad: "media"
+  - nombre: "Hollow rock con disco"
+    intensidad: "media-alta"
+  - nombre: "16 Limb plank"
+    intensidad: "media"
+  - nombre: "15 Roll out"
+    intensidad: "alta"
+  - nombre: "20 Mountain climbers cruzados"
+    intensidad: "media"
+  - nombre: "30\" Plancha frontal con disco (15 Kg)"
+    intensidad: "alta"
+  - nombre: "20\"/20\" Side Plank"
+    intensidad: "media"
+  - nombre: "30\" Hollow rock"
+    intensidad: "media"
+  - nombre: "20 Superman con dos discos 2,5 Kg"
+    intensidad: "media"
+
+anti_rotacion:
+  - nombre: "8 Pallof press arrodillada"
+    intensidad: "media"
+  - nombre: "12 Pallof press con pierna"
+    intensidad: "media"
+  - nombre: "12 Wood chop left"
+    intensidad: "media"
+  - nombre: "12 Wood chop right"
+    intensidad: "media"
+  - nombre: "12 Plank Shoulders Tap"
+    intensidad: "media"
+  - nombre: "12 Plank pull through"
+    intensidad: "media-alta"
+  - nombre: "20 Russian twist con disco"
+    intensidad: "media"
+
+flexion_dinamica:
+  - nombre: "10 Dragon Flags"
+    intensidad: "alta"
+  - nombre: "12 V - Ups con disco"
+    intensidad: "media-alta"
+  - nombre: "10 Half T2B strict"
+    intensidad: "media"
+  - nombre: "10 Dead Bug (pausa de 2\" abajo)"
+    intensidad: "media"
+  - nombre: "12 Bicho muerto con banda y disco de 2.5 KG"
+    intensidad: "media"
+  - nombre: "15 Bicho muerto con banda y solo moviendo brazos"
+    intensidad: "baja"
+  - nombre: "15 Abs crunch"
+    intensidad: "baja"
+  - nombre: "12 Arch Hollow"
+    intensidad: "media"
+  - nombre: "10 Straddle Leg Lifts"
+    intensidad: "media"
+  - nombre: "12 Kb Dead Bug Pullover"
+    intensidad: "media-alta"
+  - nombre: "10 Modified Curl Up"
+    intensidad: "baja"
+  - nombre: "8/8 One Arm OH Kb Sit up"
+    intensidad: "media-alta"
+  - nombre: "8 Hanging Leg Raises"
+    intensidad: "alta"
+  - nombre: "20 Sit ups con disco"
+    intensidad: "media"
+  - nombre: "10 Kipping bar"
+    intensidad: "media"
+  - nombre: "8 Half T2B whit Ab-Mat"
+    intensidad: "media"
+
+carries:
+  - nombre: "30 Mts Farmer's Carry"
+    intensidad: "media"
+  - nombre: "30 Mts Front Rack Carry - RPE 8"
+    intensidad: "media-alta"
+  - nombre: "30 Mts Over Head Kb Carry - RPE 8"
+    intensidad: "alta"
+  - nombre: "30 Mts Regional Carry pesado con Kb"
+    intensidad: "alta"
+  - nombre: "30 Mts Over Head Walk con Kb"
+    intensidad: "media-alta"
+
+complementarios:
+  - nombre: "12 Buenos días con barra"
+    intensidad: "media"
+  - nombre: "12 Back extensions con dos discos de 2.5 kg"
+    intensidad: "media"
+  - nombre: "Lateral Plank Right"
+    intensidad: "media"
+  - nombre: "Lateral Plank Left"
+    intensidad: "media"
+  - nombre: "8/8 Cuadrupedia pasos laterales"
+    intensidad: "baja"
+
+# ═══════════════════════════════════════════════════════════
+# SELECCIÓN POR TIPO DE DÍA
+#
+# formato: "rounds" o "tabata"
+#   - rounds: "3 Rounds" + ejercicios con reps
+#   - tabata: "Tabata XX\" x YY\"" + ejercicios (sin reps, se hacen por tiempo)
+#
+# header: "CORE" o "ESTABILIDAD" (para el título de la sección)
+# ═══════════════════════════════════════════════════════════
+seleccion_por_dia:
+  dia_a_tren_inferior_t2b:
+    categorias: ["anti_rotacion", "anti_extension"]
+    cantidad: 2
+    formato: "rounds"
+    rondas: 3
+    header: "CORE"
+    intensidad_max: "media-alta"
+    nota: "Evitar flexión pesada, T2B ya trabaja flexión de cadera"
+
+  dia_b_gimnasia_c2b:
+    categorias: ["flexion_dinamica", "anti_extension", "anti_rotacion"]
+    cantidad: 3
+    formato: "rounds"
+    rondas: 3
+    header: "CORE"
+    intensidad_max: "alta"
+    nota: "Pulling es plano diferente, combina bien con flexión"
+
+  dia_c_fuerza_absoluta:
+    categorias: ["anti_extension", "anti_rotacion"]
+    cantidad: 2
+    formato: "rounds"
+    rondas: 3
+    header: "CORE"
+    intensidad_max: "media"
+    nota: "Proteger columna, evitar carga axial extra"
+
+  dia_d_capacidad_aerobica:
+    categorias: ["carries"]
+    cantidad: 2
+    formato: "rounds"
+    rondas: 3
+    header: "ESTABILIDAD"
+    intensidad_max: "alta"
+    nota: "Estabilidad bajo fatiga y movimiento"
+
+  dia_e_recuperacion_skills:
+    categorias: ["complementarios"]
+    cantidad: 2
+    formato: "tabata"
+    tabata_trabajo: "25\""
+    tabata_descanso: "10\""
+    header: "CORE"
+    intensidad_max: "media"
+    nota: "No fatigar para olímpicos, activar estabilidad"

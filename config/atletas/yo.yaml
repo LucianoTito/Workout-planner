@@ -1,0 +1,16 @@
+# Perfil de atleta - COMPLETAR con tus datos
+nombre: "Luciano"
+
+rm:
+  front_squat: 0       # Completar
+  sumo_deadlift: 0     # Completar
+  back_squat_cuadriceps: 0
+  hip_thrust: 0
+  rumanian_deadlift: 0
+  clean: 0
+  clean_and_jerk: 0
+
+crucero_rpm: 44          # Completar con tu RPM de crucero
+
+ultimo_testeo: ""
+notas: "Completar con datos reales"

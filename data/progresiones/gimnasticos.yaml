@@ -1,0 +1,43 @@
+# Progresiones de Gimnásticos - Transcripción exacta de Gimnásticos.xlsx
+# Skills: C2B (Día 2), T2B (Día 1), HSW (Día 5)
+
+semanas:
+  S1:
+    c2b: "4 Rondas: 5 Kipping + 2 Chest-to-Bar (C2B)"
+    t2b: "EMOM 5': 8 T2B unbroken perfectos"
+    hsw: "4 x 30\" Wall-facing Hold (despegar 1 pie a la vez)"
+
+  S2:
+    c2b: "4 Rondas: 4 Kipping + 3 Chest-to-Bar (C2B)"
+    t2b: "EMOM 6': 8 T2B unbroken perfectos"
+    hsw: "4 x 16 Hip Taps (tocarse la cadera contra la pared)"
+
+  S3:
+    c2b: "4 Rondas: 3 Kipping + 4 Chest-to-Bar (C2B)"
+    t2b: "EMOM 7': 8 T2B unbroken perfectos"
+    hsw: "4 x 5 Freestanding Kick-ups (patear libre lejos de pared)"
+
+  S4:
+    c2b: "Descarga: 3 Rondas: 8 Kipping Pull-ups fluidos"
+    t2b: "Descarga: 3 Rondas: 8 Kipping Swings + 5 T2B"
+    hsw: "Descarga: 3 x 30\" Wall Hold + Movilidad de hombros"
+
+  S5:
+    c2b: "4 Rondas: 5 Chest-to-Bar unbroken"
+    t2b: "4 Rondas: 10 T2B unbroken (Descanso 60\")"
+    hsw: "4 x 10 metros Lateral Wall Walk (caminar de lado)"
+
+  S6:
+    c2b: "4 Rondas: 6 Chest-to-Bar unbroken"
+    t2b: "4 Rondas: 12 T2B unbroken (Descanso 60\")"
+    hsw: "4 Rondas: Kick-up libre + dar 2 pasos hacia adelante"
+
+  S7:
+    c2b: "3 Rondas: 8 Chest-to-Bar unbroken"
+    t2b: "3 Rondas: 14 T2B unbroken (Descanso 90\")"
+    hsw: "4 Rondas: Kick-up libre + dar 4 pasos hacia adelante"
+
+  S8:
+    c2b: "TEST: Max Unbroken Chest-to-Bar"
+    t2b: "TEST: Max Unbroken T2B"
+    hsw: "TEST: Max Distancia HSW Unbroken"

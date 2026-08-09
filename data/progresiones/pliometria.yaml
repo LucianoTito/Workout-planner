@@ -1,0 +1,58 @@
+# Progresión de Pliometría — Seated Box Jump
+# Se ubica en el Día 2 (Levantamiento + Skill HSW).
+#
+# El seated box jump se progresa por ALTURA + calidad del salto, no por peso.
+# La altura se expresa de forma relativa a la semana anterior (referencia práctica
+# para ajustar en el gym), porque la altura absoluta depende del cajón disponible.
+#
+# Reps bajas a propósito: la potencia pura no tolera volumen alto.
+# Las reps bajan cuando la intensidad (altura) sube.
+
+semanas:
+  S1:
+    series: 4
+    reps: 3
+    altura: "Altura moderada (cómoda, base del ciclo)"
+    foco: "Técnica de aterrizaje: recibir suave, cadera atrás"
+
+  S2:
+    series: 4
+    reps: 4
+    altura: "Misma altura que S1"
+    foco: "Consistencia: mismos saltos, más limpios"
+
+  S3:
+    series: 5
+    reps: 3
+    altura: "Subir ~2-4 cm respecto a S2"
+    foco: "Altura desafiante manteniendo calidad"
+
+  S4:
+    series: 3
+    reps: 3
+    altura: "Bajar a altura cómoda (descarga)"
+    foco: "Mantenimiento, sin fatiga"
+
+  S5:
+    series: 4
+    reps: 3
+    altura: "Volver a la altura de S3 y sumar ~2 cm"
+    foco: "Potencia máxima, salto explosivo"
+
+  S6:
+    series: 5
+    reps: 2
+    altura: "Subir ~2-4 cm respecto a S5"
+    foco: "Explosividad, altura casi máxima"
+
+  S7:
+    series: 4
+    reps: 2
+    altura: "Máxima altura controlable con buen aterrizaje"
+    foco: "Pico de RFD (ritmo de desarrollo de fuerza)"
+
+  S8:
+    series: 0
+    reps: 0
+    altura: "TEST: máxima altura de Seated Box Jump"
+    foco: "¡Buscar nuevo record de altura!"

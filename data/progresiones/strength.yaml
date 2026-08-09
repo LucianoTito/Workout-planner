@@ -1,0 +1,125 @@
+# Progresiones de Musculación y Levantamiento
+# Transcripción exacta de Musculación_y_levantamiento.xlsx
+#
+# Columnas del Excel:
+#   - Fuerza Base (Sentadillas y Peso Muerto) → usa % RM
+#   - Skill C&J (Corrección de Metida y Jerk) → protocolo técnico
+#   - Accesorios (Búlgaras, Hip Thrust, Step-ups) → RPE
+
+# Ejercicios que usan % RM para Fuerza Base:
+#   - Front Squat (Día 1)
+#   - Sumo Deadlift (Día 3)
+#   - Back Squat Cuádriceps (Día 3)
+
+semanas:
+  S1:
+    fase: "Adaptación a Carga"
+    fuerza_base:
+      series: 4
+      reps: 5
+      porcentaje_rm: 75
+      descripcion: "4 series x 5 reps al 75% RM"
+    skill_cj: "4 Rondas: 2 Clean Pulls con pausa + 2 Tall Cleans"
+    accesorios:
+      series: 3
+      reps: 8
+      intensidad: "RPE 7"
+      descripcion: "3 series x 8 reps (RPE 7)"
+
+  S2:
+    fase: "Intensificación 1"
+    fuerza_base:
+      series: 4
+      reps: 4
+      porcentaje_rm: 78
+      descripcion: "4 series x 4 reps al 78% RM"
+    skill_cj: "4 Rondas: 2 High Hang Cleans + 2 Jerk Balance"
+    accesorios:
+      series: 3
+      reps: 8
+      intensidad: "RPE 8"
+      descripcion: "3 series x 8 reps (Subir peso - RPE 8)"
+
+  S3:
+    fase: "Intensificación 2"
+    fuerza_base:
+      series: 4
+      reps: 4
+      porcentaje_rm: 82
+      descripcion: "4 series x 4 reps al 82% RM"
+    skill_cj: "4 Rondas: 1 Clean (controlado) + 2 Split Press"
+    accesorios:
+      series: 3
+      reps: 6
+      intensidad: "RPE 8-9"
+      descripcion: "3 series x 6 reps (Carga alta - RPE 8-9)"
+
+  S4:
+    fase: "Descarga Técnica"
+    fuerza_base:
+      series: 3
+      reps: 3
+      porcentaje_rm: 60
+      descripcion: "3 series x 3 reps al 60% RM"
+    skill_cj: "3 Rondas: C&J completo muy liviano (50% técnico)"
+    accesorios:
+      series: 2
+      reps: 8
+      intensidad: "RPE 6"
+      descripcion: "2 series x 8 reps livianas (RPE 6)"
+
+  S5:
+    fase: "Fuerza Máxima 1"
+    fuerza_base:
+      series: 3
+      reps: 3
+      porcentaje_rm: 85
+      descripcion: "3 series x 3 reps al 85% RM"
+    skill_cj: "5 Rondas (EMOM): 1 C&J Completo al 70-75% técnico"
+    accesorios:
+      series: 3
+      reps: 6
+      intensidad: "pesadas"
+      descripcion: "3 series x 6 reps pesadas"
+
+  S6:
+    fase: "Fuerza Máxima 2"
+    fuerza_base:
+      series: 3
+      reps: 3
+      porcentaje_rm: 88
+      descripcion: "3 series x 3 reps al 88% RM"
+    skill_cj: "5 Rondas (EMOM): 1 C&J Completo al 80% técnico"
+    accesorios:
+      series: 3
+      reps: 6
+      intensidad: "pesadas"
+      descripcion: "3 series x 6 reps pesadas"
+
+  S7:
+    fase: "Pico de Fuerza"
+    fuerza_base:
+      series: 3
+      reps: 2
+      porcentaje_rm: 90
+      descripcion: "3 series x 2 reps al 90% RM"
+    skill_cj: "5 Rondas (EMOM): 1 C&J Completo al 85% técnico"
+    accesorios:
+      series: 2
+      reps: 0
+      intensidad: "bajar volumen"
+      descripcion: "Bajar a 2 series de accesorios"
+
+  S8:
+    fase: "TOMA DE MARCAS"
+    fuerza_base:
+      series: 0
+      reps: 0
+      porcentaje_rm: 100
+      descripcion: "¡Testeo de 1 RM Absoluto!"
+    skill_cj: "¡Testeo de RM de Clean & Jerk Completo!"
+    accesorios:
+      series: 0
+      reps: 0
+      intensidad: "ninguna"
+      descripcion: "No se realizan accesorios pesados"
