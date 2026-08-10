@@ -289,17 +289,11 @@ class ExcelExporter:
         if dia.pliometria:
             p = dia.pliometria
             if p.series > 0:
-                lineas = [
-                    f"Seated Box Jump {p.series}x{p.reps}",
-                    f"Altura: {p.altura}",
-                    f"Foco: {p.foco}",
-                ]
+                lineas = [f"{p.ejercicio} {p.series}x{p.reps}", f"Altura: {p.altura}"]
             else:
-                lineas = [
-                    "Seated Box Jump — TEST",
-                    p.altura,
-                    f"Foco: {p.foco}",
-                ]
+                lineas = [f"{p.ejercicio} — {p.altura}"]
+            if p.foco:
+                lineas.append(f"Foco: {p.foco}")
             bloques.append(("PLIOMETRÍA", lineas))
 
         # ─── ACCESORIOS ───
@@ -310,6 +304,10 @@ class ExcelExporter:
         # ─── SKILL C&J ───
         if dia.skill_cj:
             bloques.append(("SKILL CLEAN & JERK", [dia.skill_cj]))
+
+        # ─── SKILL C&J TÉCNICO (2º toque ligero, 2×/sem) ───
+        if dia.skill_cj_tecnico:
+            bloques.append(("SKILL C&J (TÉCNICO)", [dia.skill_cj_tecnico]))
 
         # ─── PACING ───
         if dia.pacing:

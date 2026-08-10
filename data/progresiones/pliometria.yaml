@@ -1,58 +1,66 @@
-# Progresión de Pliometría — Seated Box Jump
-# Se ubica en el Día 2 (Levantamiento + Skill HSW).
+# Progresión de Pliometría (PAP) — acompaña al Skill C&J
+# Fuente: Levantamiento_Olímpico_Agosto_2xSemana.xlsx (sesión pesada · S1→S8)
 #
-# El seated box jump se progresa por ALTURA + calidad del salto, no por peso.
-# La altura se expresa de forma relativa a la semana anterior (referencia práctica
-# para ajustar en el gym), porque la altura absoluta depende del cajón disponible.
+# El motor la ubica en el día que absorbe el C&J según los días entrenados:
+#   5 días → Día E · 4 días → Día B · 3 días → Día A
 #
+# Progresión del movimiento (PAP real): Seated Box Jump → High Box Jump → reactivo.
+# El campo `ejercicio` define el movimiento; `altura` es referencia práctica de gym.
 # Reps bajas a propósito: la potencia pura no tolera volumen alto.
-# Las reps bajan cuando la intensidad (altura) sube.
 
 semanas:
   S1:
+    ejercicio: "Seated Box Jump"
     series: 4
     reps: 3
-    altura: "Altura moderada (cómoda, base del ciclo)"
+    altura: "Cajón 50 cm + discos"
     foco: "Técnica de aterrizaje: recibir suave, cadera atrás"
 
   S2:
+    ejercicio: "Seated Box Jump"
     series: 4
-    reps: 4
-    altura: "Misma altura que S1"
+    reps: 3
+    altura: "Subir altura de cajón vs S1"
     foco: "Consistencia: mismos saltos, más limpios"
 
   S3:
-    series: 5
+    ejercicio: "Seated Box Jump"
+    series: 3
     reps: 3
-    altura: "Subir ~2-4 cm respecto a S2"
+    altura: "Máxima altura con buen aterrizaje"
     foco: "Altura desafiante manteniendo calidad"
 
   S4:
+    ejercicio: "Saltos a cajón bajos"
     series: 3
     reps: 3
-    altura: "Bajar a altura cómoda (descarga)"
+    altura: "Cajón bajo, sin peso (descarga)"
     foco: "Mantenimiento, sin fatiga"
 
   S5:
+    ejercicio: "High Box Jump"
     series: 4
-    reps: 3
-    altura: "Volver a la altura de S3 y sumar ~2 cm"
+    reps: 2
+    altura: "Con contramovimiento"
     foco: "Potencia máxima, salto explosivo"
 
   S6:
-    series: 5
+    ejercicio: "High Box Jump"
+    series: 3
     reps: 2
-    altura: "Subir ~2-4 cm respecto a S5"
+    altura: "Casi máxima"
     foco: "Explosividad, altura casi máxima"
 
   S7:
-    series: 4
+    ejercicio: "Pliometría reactiva"
+    series: 3
     reps: 2
-    altura: "Máxima altura controlable con buen aterrizaje"
+    altura: "Broad Jump → Box Jump (encadenado)"
     foco: "Pico de RFD (ritmo de desarrollo de fuerza)"
 
   S8:
+    ejercicio: "SIN PLIOMETRÍA"
     series: 0
     reps: 0
-    altura: "TEST: máxima altura de Seated Box Jump"
-    foco: "¡Buscar nuevo record de altura!"
+    altura: "Día de testeo"
+    foco: ""

@@ -84,12 +84,13 @@ class SeccionPliometria:
     reps: int
     altura: str                # Descripción relativa de altura
     foco: str                  # Foco técnico de la semana
+    ejercicio: str = "Seated Box Jump"   # Movimiento del PAP (desde YAML; default por compatibilidad)
 
     @property
     def display(self) -> str:
         if self.series == 0:
-            return f"Seated Box Jump — {self.altura}"
-        return f"Seated Box Jump {self.series}x{self.reps} — {self.altura}"
+            return f"{self.ejercicio} — {self.altura}"
+        return f"{self.ejercicio} {self.series}x{self.reps} — {self.altura}"
 
 
 @dataclass
@@ -122,7 +123,8 @@ class DiaEntrenamiento:
     musculacion: list[EjercicioFuerza] = field(default_factory=list)
     acompanantes: list[AccesorioEjercicio] = field(default_factory=list)
     accesorios: str = ""           # Descripción de accesorios (RPE) - legacy
-    skill_cj: str = ""            # Protocolo de Clean & Jerk
+    skill_cj: str = ""            # Protocolo de Clean & Jerk (sesión pesada)
+    skill_cj_tecnico: str = ""    # 2º toque C&J técnico/ligero (2×/sem, Día D)
     pacing: Optional[SeccionPacing] = None
     pliometria: Optional[SeccionPliometria] = None
     accesorios_lista: list[AccesorioEjercicio] = field(default_factory=list)

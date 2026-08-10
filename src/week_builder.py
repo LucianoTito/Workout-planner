@@ -281,14 +281,21 @@ class WeekBuilder:
                     rpe=bul_rpe,
                     nota=bulgara_data.get("nota", ""),
                 ))
-        if tipo == TipoDia.E_RECUPERACION_SKILLS:
-            if pliometria_data:
-                dia.pliometria = SeccionPliometria(
-                    series=pliometria_data.get("series", 0),
-                    reps=pliometria_data.get("reps", 0),
-                    altura=pliometria_data.get("altura", ""),
-                    foco=pliometria_data.get("foco", ""),
-                )
+        # Pliometría acompaña al Skill C&J → cae en el día que lo absorbe:
+        #   5 días → Día E · 4 días → Día B · 3 días → Día A
+        plio_en_este_dia = (
+            (dias_disponibles == 5 and tipo == TipoDia.E_RECUPERACION_SKILLS)
+            or (dias_disponibles == 4 and tipo == TipoDia.B_GIMNASIA_C2B)
+            or (dias_disponibles == 3 and tipo == TipoDia.A_TREN_INFERIOR_T2B)
+        )
+        if plio_en_este_dia and pliometria_data:
+            dia.pliometria = SeccionPliometria(
+                series=pliometria_data.get("series", 0),
+                reps=pliometria_data.get("reps", 0),
+                altura=pliometria_data.get("altura", ""),
+                foco=pliometria_data.get("foco", ""),
+                ejercicio=pliometria_data.get("ejercicio", "Seated Box Jump"),
+            )
 
         # ─── BATERÍA DE ACCESORIOS — va en Día B (Estética) ───
         if tipo == TipoDia.B_GIMNASIA_C2B:
@@ -320,7 +327,7 @@ class WeekBuilder:
                             nota=ej.get("nota", ""),
                         ))
 
-        # ─── PACING ───
+        # ─── PACING + 2º toque C&J técnico (completa el estímulo 2×/semana) ───
         if tipo == TipoDia.D_CAPACIDAD_AEROBICA:
             dia.pacing = SeccionPacing(
                 formato=pacing_data.get("formato", ""),
@@ -328,6 +335,7 @@ class WeekBuilder:
                 bloque2=pacing_data.get("bloque2", ""),
                 metrica=pacing_data.get("metrica", ""),
             )
+            dia.skill_cj_tecnico = strength.get("skill_cj_ligero", "")
 
         return dia
 

@@ -213,11 +213,12 @@ def flujo_generar_semana():
             p = dia.pliometria
             print("  PLIOMETRÍA:")
             if p.series > 0:
-                print(f"    Seated Box Jump {p.series}x{p.reps}")
+                print(f"    {p.ejercicio} {p.series}x{p.reps}")
+                print(f"    Altura: {p.altura}")
             else:
-                print(f"    Seated Box Jump — TEST")
-            print(f"    Altura: {p.altura}")
-            print(f"    Foco: {p.foco}")
+                print(f"    {p.ejercicio} — {p.altura}")
+            if p.foco:
+                print(f"    Foco: {p.foco}")
 
         # Accesorios (batería)
         if dia.accesorios_lista:
@@ -229,6 +230,11 @@ def flujo_generar_semana():
         if dia.skill_cj:
             print(f"  SKILL C&J:")
             print(f"    {dia.skill_cj}")
+
+        # C&J técnico (2º toque ligero, 2×/sem)
+        if dia.skill_cj_tecnico:
+            print(f"  SKILL C&J (TÉCNICO):")
+            print(f"    {dia.skill_cj_tecnico}")
 
         # Pacing
         if dia.pacing:

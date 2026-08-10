@@ -5,6 +5,11 @@
 #   - Fuerza Base (Sentadillas y Peso Muerto) → usa % RM
 #   - Skill C&J (Corrección de Metida y Jerk) → protocolo técnico
 #   - Accesorios (Búlgaras, Hip Thrust, Step-ups) → RPE
+#
+# Estímulo C&J 2×/semana (Agosto):
+#   - skill_cj         → sesión PESADA (día que absorbe el C&J: 5→E, 4→B, 3→A)
+#   - skill_cj_ligero  → 2º toque TÉCNICO ligero (Día D · Aeróbico/Pacing)
+#                        vacío = sin 2º toque esa semana (S4 descarga, S8 post-testeo)
 
 # Ejercicios que usan % RM para Fuerza Base:
 #   - Front Squat (Día 1)
@@ -19,7 +24,8 @@ semanas:
       reps: 5
       porcentaje_rm: 75
       descripcion: "4 series x 5 reps al 75% RM"
-    skill_cj: "4 Rondas: 2 Clean Pulls con pausa + 2 Tall Cleans"
+    skill_cj: "4 rondas: 2 Clean Pulls pausa rodilla + 2 Tall Cleans · desc 90s · 32,5-35 kg (~60%) · RPE 6"
+    skill_cj_ligero: "2 rondas Tall Cleans · 25 kg (~45%) · RPE 4 · técnica pura"
     accesorios:
       series: 3
       reps: 8
@@ -33,7 +39,8 @@ semanas:
       reps: 4
       porcentaje_rm: 78
       descripcion: "4 series x 4 reps al 78% RM"
-    skill_cj: "4 Rondas: 2 High Hang Cleans + 2 Jerk Balance"
+    skill_cj: "4 rondas: 2 High Hang Squat Cleans + 2 Jerk Balance · desc 90s · 35-38 kg (~65-70%) · RPE 7"
+    skill_cj_ligero: "2 rondas Tall Cleans · 25 kg (~45%) · RPE 4 · técnica pura"
     accesorios:
       series: 3
       reps: 8
@@ -47,7 +54,8 @@ semanas:
       reps: 4
       porcentaje_rm: 82
       descripcion: "4 series x 4 reps al 82% RM"
-    skill_cj: "4 Rondas: 1 Clean (controlado) + 2 Split Press"
+    skill_cj: "4 rondas: 1 Segment Clean (pausa 2\") + 1 Pause Dip Split Jerk · desc 2 min · 40-42,5 kg (~73-77%) · RPE 7,5"
+    skill_cj_ligero: "2 rondas Tall Cleans · 27,5 kg (~50%) · RPE 4 · técnica pura"
     accesorios:
       series: 3
       reps: 6
@@ -61,7 +69,8 @@ semanas:
       reps: 3
       porcentaje_rm: 60
       descripcion: "3 series x 3 reps al 60% RM"
-    skill_cj: "3 Rondas: C&J completo muy liviano (50% técnico)"
+    skill_cj: "Descarga técnica — A: 5 Clean Pulls rodilla + 5 Tall Cleans (3 rondas · 90s) · B: 2 Pause Cleans 2\" (3 rondas · 2 min) · RPE 5"
+    skill_cj_ligero: ""   # descarga — sin 2º toque
     accesorios:
       series: 2
       reps: 8
@@ -75,7 +84,8 @@ semanas:
       reps: 3
       porcentaje_rm: 85
       descripcion: "3 series x 3 reps al 85% RM"
-    skill_cj: "5 Rondas (EMOM): 1 C&J Completo al 70-75% técnico"
+    skill_cj: "5 rondas: 1 High Hang Clean + 1 Clean desde piso + 1 Split Jerk · desc 2 min · 42,5-45 kg (~77-82%) · RPE 8"
+    skill_cj_ligero: "2 rondas Tall Cleans · 30 kg (~55%) · RPE 4 · técnica pura"
     accesorios:
       series: 3
       reps: 6
@@ -89,7 +99,8 @@ semanas:
       reps: 3
       porcentaje_rm: 88
       descripcion: "3 series x 3 reps al 88% RM"
-    skill_cj: "5 Rondas (EMOM): 1 C&J Completo al 80% técnico"
+    skill_cj: "EMOM 8': min impar 1 C&J completo · min par rest · 45-47,5 kg (~82-86%) · RPE 8,5"
+    skill_cj_ligero: "2 rondas técnica pura · 32,5 kg (~60%) · RPE 4"
     accesorios:
       series: 3
       reps: 6
@@ -103,7 +114,8 @@ semanas:
       reps: 2
       porcentaje_rm: 90
       descripcion: "3 series x 2 reps al 90% RM"
-    skill_cj: "5 Rondas (EMOM): 1 C&J Completo al 85% técnico"
+    skill_cj: "5 rondas: 1 Clean pausa 2\" recepción + 1 Split Jerk · desc 2-3 min · 47,5-50 kg (~86-91%) · RPE 9"
+    skill_cj_ligero: "2 rondas técnica pura · 30 kg (~55%) · RPE 4"
     accesorios:
       series: 2
       reps: 0
@@ -117,7 +129,8 @@ semanas:
       reps: 0
       porcentaje_rm: 100
       descripcion: "¡Testeo de 1 RM Absoluto!"
-    skill_cj: "¡Testeo de RM de Clean & Jerk Completo!"
+    skill_cj: "Testeo 1RM C&J — piramidal: 50%(3) 60%(2) 70%(1) 80%(1) 85%(1) 90%(1) 95%(1) 100%+ · RPE 10"
+    skill_cj_ligero: ""   # post-testeo — sin 2º toque
     accesorios:
       series: 0
       reps: 0
