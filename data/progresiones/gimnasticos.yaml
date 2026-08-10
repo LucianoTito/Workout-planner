@@ -1,41 +1,43 @@
 # Progresiones de Gimnásticos - Transcripción exacta de Gimnásticos.xlsx
 # Skills: C2B (Día 2), T2B (Día 1), HSW (Día 5)
+# Descanso entre rondas: 1:30 en fase baja/descarga (S1-S4), 2:00 en fase
+# fuerte de unbroken (S5-S7). EMOM y TEST no llevan descanso fijo.
 
 semanas:
   S1:
-    c2b: "4 Rondas: 5 Kipping + 2 Chest-to-Bar (C2B)"
+    c2b: "4 Rondas: 5 Kipping + 2 Chest-to-Bar (C2B) (Descanso 1:30)"
     t2b: "EMOM 5': 8 T2B unbroken perfectos"
-    hsw: "4 x 30\" Wall-facing Hold (despegar 1 pie a la vez)"
+    hsw: "4 x 30\" Wall-facing Hold (despegar 1 pie a la vez) (Descanso 1:30)"
 
   S2:
-    c2b: "4 Rondas: 4 Kipping + 3 Chest-to-Bar (C2B)"
+    c2b: "4 Rondas: 4 Kipping + 3 Chest-to-Bar (C2B) (Descanso 1:30)"
     t2b: "EMOM 6': 8 T2B unbroken perfectos"
-    hsw: "4 x 16 Hip Taps (tocarse la cadera contra la pared)"
+    hsw: "4 x 16 Hip Taps (tocarse la cadera contra la pared) (Descanso 1:30)"
 
   S3:
-    c2b: "4 Rondas: 3 Kipping + 4 Chest-to-Bar (C2B)"
+    c2b: "4 Rondas: 3 Kipping + 4 Chest-to-Bar (C2B) (Descanso 1:30)"
     t2b: "EMOM 7': 8 T2B unbroken perfectos"
-    hsw: "4 x 5 Freestanding Kick-ups (patear libre lejos de pared)"
+    hsw: "4 x 5 Freestanding Kick-ups (patear libre lejos de pared) (Descanso 1:30)"
 
   S4:
-    c2b: "Descarga: 3 Rondas: 8 Kipping Pull-ups fluidos"
-    t2b: "Descarga: 3 Rondas: 8 Kipping Swings + 5 T2B"
-    hsw: "Descarga: 3 x 30\" Wall Hold + Movilidad de hombros"
+    c2b: "Descarga: 3 Rondas: 8 Kipping Pull-ups fluidos (Descanso 1:30)"
+    t2b: "Descarga: 3 Rondas: 8 Kipping Swings + 5 T2B (Descanso 1:30)"
+    hsw: "Descarga: 3 x 30\" Wall Hold + Movilidad de hombros (Descanso 1:30)"
 
   S5:
-    c2b: "4 Rondas: 5 Chest-to-Bar unbroken"
-    t2b: "4 Rondas: 10 T2B unbroken (Descanso 60\")"
-    hsw: "4 x 10 metros Lateral Wall Walk (caminar de lado)"
+    c2b: "4 Rondas: 5 Chest-to-Bar unbroken (Descanso 2:00)"
+    t2b: "4 Rondas: 10 T2B unbroken (Descanso 2:00)"
+    hsw: "4 x 10 metros Lateral Wall Walk (caminar de lado) (Descanso 2:00)"
 
   S6:
-    c2b: "4 Rondas: 6 Chest-to-Bar unbroken"
-    t2b: "4 Rondas: 12 T2B unbroken (Descanso 60\")"
-    hsw: "4 Rondas: Kick-up libre + dar 2 pasos hacia adelante"
+    c2b: "4 Rondas: 6 Chest-to-Bar unbroken (Descanso 2:00)"
+    t2b: "4 Rondas: 12 T2B unbroken (Descanso 2:00)"
+    hsw: "4 Rondas: Kick-up libre + dar 2 pasos hacia adelante (Descanso 2:00)"
 
   S7:
-    c2b: "3 Rondas: 8 Chest-to-Bar unbroken"
-    t2b: "3 Rondas: 14 T2B unbroken (Descanso 90\")"
-    hsw: "4 Rondas: Kick-up libre + dar 4 pasos hacia adelante"
+    c2b: "3 Rondas: 8 Chest-to-Bar unbroken (Descanso 2:00)"
+    t2b: "3 Rondas: 14 T2B unbroken (Descanso 2:00)"
+    hsw: "4 Rondas: Kick-up libre + dar 4 pasos hacia adelante (Descanso 2:00)"
 
   S8:
     c2b: "TEST: Max Unbroken Chest-to-Bar"

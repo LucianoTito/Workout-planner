@@ -75,6 +75,9 @@ class _Estilos:
         self.font_sub    = f("subtitulo"); self.fill_sub    = fl("subtitulo")
         self.font_bloque = f("bloque");    self.fill_bloque = fl("bloque")
         self.font_normal = f("contenido"); self.fill_contenido = fl("contenido")
+        self.font_normal_bold = Font(name="Arial", bold=True,
+                                     color=tema["contenido"]["font"],
+                                     size=tema["contenido"]["size"])
         self.font_notas  = Font(name="Arial", italic=True, color="808080",
                                 size=tema["contenido"]["size"])
 
@@ -195,14 +198,22 @@ class ExcelExporter:
                 fila_actual += nf_header
 
                 # Contenido: cada línea ocupa las filas que necesite
-                for linea in lineas:
+                for i, linea in enumerate(lineas):
                     es_wod_vacio = (linea == "[COMPLETAR MANUALMENTE]")
+                    # 1ª línea de CORE/ESTABILIDAD = formato (Rounds/Tabata) → negrita
+                    es_formato_core = (header in ("CORE", "ESTABILIDAD") and i == 0)
                     nf = filas_necesarias(linea)
                     # Alineación: centrado si ocupa varias filas (merge), izq si 1
                     align = ALIGN_CENTER if nf > 1 else ALIGN_LEFT
+                    if es_wod_vacio:
+                        font = est.font_notas
+                    elif es_formato_core:
+                        font = est.font_normal_bold
+                    else:
+                        font = est.font_normal
                     self._escribir_celda(
                         ws, fila_actual, col, linea,
-                        font=est.font_notas if es_wod_vacio else est.font_normal,
+                        font=font,
                         fill=est.fill_contenido, filas=nf, align=align,
                     )
                     fila_actual += nf
