@@ -42,8 +42,10 @@ dias:
       - header: "CALENTAMIENTO"
         items:
           - "Bici suave — 4 min"
-          - "Abducción cadera acostado de lado — 2×15/lado"
-          - "Glute bridge — 2×15 · pausa 1s arriba"
+          - "Abducción cadera acostado de lado con banda (tobillos) — 2×15/lado · tensión baja"
+          - "Glute bridge con banda sobre rodillas (empujá rodillas afuera) — 2×15 · pausa 1s arriba · tensión baja-moderada"
+          - "Caminata lateral / monster walk con banda — 2×10 pasos/lado · empezá por izq · tensión baja-moderada"
+          - "TKE con banda — 2×15/lado · tensión baja-moderada"
           - "Dead bug — 2×10/lado"
 
       - header: "ISOMETRÍA · tendón rotuliano"
@@ -89,8 +91,10 @@ dias:
         items:
           - "Bici o remo suave — 3 min"
           - "Reverse fly inclinado (mancuernas livianas) — 2×20"
-          - "Rotación externa en polea — 2×15/lado · liviano (codo pegado)"
-          - "Face pull en polea — 2×20"
+          - "Rotación externa con banda a 0° (toalla bajo el codo) — 2×15/lado · tensión baja"
+          - "Face pull con banda — 2×20 · tensión baja-moderada"
+          - "Band pull-apart (palmas arriba) — 2×15 · tensión baja-moderada"
+          - "Serrato punch con banda — 2×12 · tensión baja"
           - "Prone IYT — 2×5 c/letra · sin peso"
 
       - header: "TRACCIÓN VERTICAL"
@@ -164,8 +168,10 @@ dias:
       - header: "CALENTAMIENTO"
         items:
           - "Bici suave — 3 min"
-          - "Abducción cadera acostado de lado — 2×15/lado"
-          - "Glute bridge — 2×12 · pausa 1s"
+          - "Abducción cadera acostado de lado con banda (tobillos) — 2×15/lado · tensión baja"
+          - "Glute bridge con banda sobre rodillas (empujá rodillas afuera) — 2×12 · pausa 1s · tensión baja-moderada"
+          - "Caminata lateral / monster walk con banda — 2×10 pasos/lado · empezá por izq · tensión baja-moderada"
+          - "TKE con banda — 2×15/lado · tensión baja-moderada"
           - "Sentadilla al aire — 2×10 · rango sin dolor"
 
       - header: "ISOMETRÍA"
