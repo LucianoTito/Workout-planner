@@ -9,6 +9,7 @@
   <img src="https://img.shields.io/badge/Python-3.10%2B-3776AB?logo=python&logoColor=white" alt="Python 3.10+"/>
   <img src="https://img.shields.io/badge/openpyxl-3.1%2B-1D6F42" alt="openpyxl"/>
   <img src="https://img.shields.io/badge/PyYAML-6.0%2B-CB171E" alt="PyYAML"/>
+  <img src="https://img.shields.io/badge/rich-13%2B-B8860B" alt="rich"/>
   <img src="https://img.shields.io/badge/tests-52%20passing-2EA44F" alt="52 tests passing"/>
   <img src="https://img.shields.io/badge/Google%20Drive-API-4285F4?logo=googledrive&logoColor=white" alt="Google Drive API"/>
 </p>
@@ -29,6 +30,15 @@
 |:---:|:---:|:---:|
 | <img src="assets/crossfit_semana.png" width="320"/> | <img src="assets/reconstruccion_s1.png" width="320"/> | <img src="assets/reconstruccion_s4_deload.png" width="320"/> |
 | 5 días · fuerza por %RM · skills + pacing | 4 días · cargas por semana · foco rodilla | misma semana en descarga (menos volumen) |
+
+### La consola / The CLI
+
+Interfaz de terminal con [`rich`](https://github.com/Textualize/rich) y una **paleta dorada** uniforme. *Terminal UI powered by `rich` with a consistent golden palette.*
+
+| Menú principal / Main menu | Ver ciclo completo / Full cycle | RM y pesos / 1RM & loads |
+|:---:|:---:|:---:|
+| <img src="assets/cli_menu.png" width="320"/> | <img src="assets/cli_ciclo.png" width="320"/> | <img src="assets/cli_pesos.png" width="320"/> |
+| paneles y tablas · color por rol | panel + tabla por semana | pesos por %RM · TEST en rojo |
 
 ---
 
@@ -62,7 +72,7 @@ El proyecto tiene **dos motores independientes** que comparten el mismo estilo d
 
 ```text
 Workout-planner/
-├── main.py                          # CLI (menú principal)
+├── main.py                          # CLI (menú principal · UI con rich: paneles, tablas, paleta dorada)
 ├── requirements.txt
 ├── config/
 │   └── atletas/                     # Perfiles de atleta (RM, RPM crucero)
@@ -137,6 +147,7 @@ Toda la lógica de entrenamiento vive en **archivos YAML** (progresiones, cargas
   - 🟤 **Bloque Reconstrucción (4 semanas):** rehabilitación con cargas fijas por semana y **descarga (*deload*) en la S4**, pensado para volver de una lesión de rodilla.
 - **Selector inteligente de core:** elige ejercicios según el día, sin repetir en la semana y evitando fatigar los grupos ya trabajados (reproducible con *seed*).
 - **Exportación a Excel prolija:** temas de color por atleta (*rosa* / *arena*), combinación vertical automática para textos largos, bloques vacíos omitidos y un área de **NOTAS** libre.
+- **Consola con estilo:** interfaz de terminal con [`rich`](https://github.com/Textualize/rich) — paneles, tablas y una **paleta dorada** uniforme, con color por rol (títulos, opciones, %RM, avisos y errores).
 - **Distribución flexible:** el ciclo se adapta a **3, 4 o 5 días** por semana.
 - **Integración con Google Drive:** sube la semana como una **pestaña** dentro del Sheets "maestro" del atleta, con red de seguridad para no pisar pestañas editadas a mano.
 - **52 tests** que cubren cálculos, progresiones y exportación.
@@ -165,7 +176,7 @@ Al ejecutar `python main.py`:
   5 │ Salir
 ```
 
-El flujo te pide el atleta, la semana y la fecha de inicio, muestra un *preview* en consola y ofrece exportar a Excel (y, si querés, subir a Drive).
+El menú, las tablas y los *previews* se dibujan con `rich` en una **paleta dorada** uniforme. El flujo te pide el atleta, la semana y la fecha de inicio, muestra un *preview* en consola y ofrece exportar a Excel (y, si querés, subir a Drive).
 
 ### ✏️ Editar o agregar ejercicios
 
@@ -217,6 +228,7 @@ All training logic lives in **YAML files** (progressions, loads, catalogs), so t
   - 🟤 **Reconstruction block (4 weeks):** rehab-oriented, fixed weekly loads with a **deload on week 4**, designed to come back from a knee injury.
 - **Smart core selector:** picks exercises per day, never repeats within a week and avoids fatiguing already-worked groups (reproducible via seed).
 - **Clean Excel export:** per-athlete color themes (*rosa* / *arena*), automatic vertical merging for long text, empty blocks skipped and a free **NOTES** area.
+- **Styled console:** [`rich`](https://github.com/Textualize/rich)-powered terminal UI — panels, tables and a consistent **golden palette**, color-coded by role (titles, options, %RM, warnings and errors).
 - **Flexible split:** the cycle adapts to **3, 4 or 5 days** per week.
 - **Google Drive integration:** uploads the week as a **tab** inside the athlete's "master" Sheet, with a safety net so hand-edited tabs aren't overwritten.
 - **52 tests** covering calculations, progressions and export.
@@ -245,7 +257,7 @@ Running `python main.py`:
   5 │ Exit
 ```
 
-The flow asks for the athlete, the week and the start date, shows a console preview and offers to export to Excel (and optionally upload to Drive).
+The menu, tables and previews are rendered with `rich` in a consistent **golden palette**. The flow asks for the athlete, the week and the start date, shows a console preview and offers to export to Excel (and optionally upload to Drive).
 
 ### ✏️ Editing or adding exercises
 
