@@ -6,6 +6,8 @@ Genera semanas de entrenamiento con progresiones automáticas.
 
 import sys
 import math
+import shutil
+import tempfile
 import yaml
 from datetime import datetime
 from pathlib import Path
@@ -316,43 +318,97 @@ def flujo_generar_semana():
 
         say("  WOD: [COMPLETAR MANUALMENTE]", style="dim")
 
-    # Exportar a Excel
+    # Exportar (Drive y Excel son independientes; ver exportar_y_subir)
+    nombre = f"S{semana.numero_semana}_{atleta.nombre}_{fecha or 'ciclo'}".replace("/", "-")
+    exportar_y_subir(
+        semana,
+        exporter_cls=ExcelExporter,
+        nombre_archivo=nombre,
+        fecha=fecha,
+        atleta=atleta.nombre,
+        tema=None,                  # None = preguntar rosa/arena
+    )
+
+
+def pedir_tema(default: str = "rosa") -> str:
+    """Pregunta el tema de colores del Excel. Enter deja el default."""
+    head("\n  🎨 Tema de colores:")
+    tabla = Table(box=box.SIMPLE, show_header=False, padding=(0, 1))
+    tabla.add_column("#", justify="center", style=PAL["num"])
+    tabla.add_column("Tema", style="white")
+    tabla.add_row("1", "Rosa (Brisa)")
+    tabla.add_row("2", "Arena (Luciano)")
+    console.print(tabla)
+    marca = "2" if default == "arena" else "1"
+    resp = ask(f"Elegí tema (1-2) [{marca}]: ").strip()
+    return {"1": "rosa", "2": "arena"}.get(resp, default)
+
+
+def exportar_y_subir(semana, *, exporter_cls, nombre_archivo, fecha, atleta,
+                     tema=None, tema_default="rosa"):
+    """
+    Pregunta por Drive y por Excel — independientes, y en ese orden.
+
+    Drive necesita sí o sí un .xlsx en disco para subir (Google lo convierte a
+    Sheets del otro lado). Si pedís Drive pero no el Excel, se arma en una
+    carpeta temporal y se borra después: no queda nada en output/.
+
+    Si la subida falla y no pediste el Excel, se rescata igual a output/ para
+    no perder la semana ya generada.
+
+    tema=None significa "preguntalo", y `tema_default` es lo que queda si
+    apretás Enter (rosa en CrossFit, el del YAML en Reconstrucción).
+
+    Devuelve la ruta final del .xlsx, o None si no quedó ningún archivo.
+    """
     sep()
-    exportar = ask("¿Exportar a Excel? (s/n): ").strip().lower()
-    if exportar == "s":
-        head("\n  🎨 Tema de colores:")
-        tabla = Table(box=box.SIMPLE, show_header=False, padding=(0, 1))
-        tabla.add_column("#", justify="center", style=PAL["num"])
-        tabla.add_column("Tema", style="white")
-        tabla.add_row("1", "Rosa (Brisa)")
-        tabla.add_row("2", "Arena (Luciano)")
-        console.print(tabla)
-        op_tema = ask("Elegí tema (1-2) [1]: ").strip()
-        tema = "arena" if op_tema == "2" else "rosa"
+    subir = ask("¿Subir a Google Drive? (s/n): ").strip().lower() == "s"
+    guardar = ask("¿Guardar el Excel en output/? (s/n): ").strip().lower() == "s"
 
-        exporter = ExcelExporter(tema=tema)
-        nombre = f"S{semana.numero_semana}_{atleta.nombre}_{fecha or 'ciclo'}"
-        nombre = nombre.replace("/", "-")
-        ruta = exporter.exportar_semana(semana, nombre)
-        ok(f"  ✅ Archivo generado: {ruta}")
+    if not subir and not guardar:
+        info("  ℹ️  Listo, no se generó ningún archivo (quedó solo la vista previa)")
+        return None
 
-        # Ofrecer subida automática a Google Drive
-        subir = ask("¿Subir a Drive como pestaña del maestro? (s/n): ").strip().lower()
-        if subir == "s":
-            d = datetime.strptime(fecha, "%d/%m/%Y")
-            mes = MESES_ES[d.month - 1]
-            nombre_pestana = confirmar_nombre_pestana(fecha)
-            nombre_maestro = f"{mes} - {atleta.nombre}"          # Agosto - Brisa
-            subcarpeta = f"{atleta.nombre} - {d.year}"           # Brisa - 2026
-            subir_a_drive(ruta, nombre_pestana, nombre_maestro, subcarpeta)
-        else:
-            info("  📱 Podés subir el archivo a Drive manualmente cuando quieras")
-    else:
-        info("  ℹ️  No se exportó a Excel")
+    if tema is None:
+        tema = pedir_tema(tema_default)
+
+    tmpdir = None if guardar else tempfile.mkdtemp(prefix="workout_planner_")
+    try:
+        exporter = exporter_cls(output_dir=tmpdir or "output", tema=tema)
+        ruta = exporter.exportar_semana(semana, nombre_archivo)
+        if guardar:
+            ok(f"  ✅ Archivo generado: {ruta}")
+
+        if not subir:
+            return ruta
+
+        d = datetime.strptime(fecha, "%d/%m/%Y")
+        mes = MESES_ES[d.month - 1]
+        nombre_pestana = confirmar_nombre_pestana(fecha)
+        exito = subir_a_drive(ruta, nombre_pestana,
+                              f"{mes} - {atleta}", f"{atleta} - {d.year}")
+
+        if exito or guardar:
+            return ruta if guardar else None
+
+        # Falló Drive y no pediste el Excel: lo rescatamos para no perderlo
+        rescate = Path("output") / Path(ruta).name
+        rescate.parent.mkdir(parents=True, exist_ok=True)
+        shutil.copy2(ruta, rescate)
+        warn(f"  💾 La subida falló, así que te dejé el Excel acá: {rescate}")
+        return str(rescate)
+    finally:
+        if tmpdir:
+            shutil.rmtree(tmpdir, ignore_errors=True)
 
 
-def subir_a_drive(ruta_xlsx: str, nombre_pestana: str, nombre_maestro: str, subcarpeta: str):
-    """Agrega la semana como una pestaña dentro del Sheets maestro del atleta."""
+def subir_a_drive(ruta_xlsx: str, nombre_pestana: str,
+                  nombre_maestro: str, subcarpeta: str) -> bool:
+    """
+    Agrega la semana como una pestaña dentro del Sheets maestro del atleta.
+
+    Devuelve True si la subida se completó, False si falló o se canceló.
+    """
     try:
         # Importación local: solo se carga si el usuario elige subir.
         from src.drive_uploader import DriveUploader
@@ -368,7 +424,7 @@ def subir_a_drive(ruta_xlsx: str, nombre_pestana: str, nombre_maestro: str, subc
             resp = ask("¿La reemplazo? (s/n): ").strip().lower()
             if resp != "s":
                 err("  ❌ Cancelado. No se tocó el maestro.")
-                return
+                return False
 
         info("  ⏳ Subiendo y agregando la pestaña al maestro...")
         resultado = uploader.agregar_semana_como_pestana(
@@ -380,14 +436,17 @@ def subir_a_drive(ruta_xlsx: str, nombre_pestana: str, nombre_maestro: str, subc
 
         ok(f"  ✅ ¡Listo! Pestaña '{nombre_pestana}' en '{nombre_maestro}'")
         say(f"  🔗 Link: {resultado['link']}", style="blue")
+        return True
     except FileNotFoundError as e:
         err(f"  ❌ {e}")
+        return False
     except ImportError:
         err("  ❌ Faltan las librerías de Google. Instalá con:")
         info("     pip install google-auth google-auth-oauthlib google-api-python-client")
+        return False
     except Exception as e:
         err(f"  ❌ Error al subir a Drive: {e}")
-        info("  ℹ️  El Excel quedó generado localmente igual.")
+        return False
 
 
 def flujo_ver_ciclo():
@@ -571,28 +630,21 @@ def flujo_generar_reconstruccion():
             for linea in lineas:
                 say(f"    {linea}")
 
-    # Exportar
-    sep()
-    if ask("¿Exportar a Excel? (s/n): ").strip().lower() != "s":
-        info("  ℹ️  No se exportó a Excel")
-        return
-
-    exporter = BloqueExporter(tema=prog.tema)
+    # Exportar (Drive y Excel son independientes; ver exportar_y_subir)
     # El sufijo de días solo se agrega si NO es la variante por defecto,
     # así los archivos de 4 días conservan el nombre de siempre.
     sufijo = "" if dias in (None, prog.variante_default) else f"_{dias}dias"
     nombre = (f"S{semana.numero_semana}_{prog.nombre.replace(' ', '_')}"
               f"_{fecha}{sufijo}").replace("/", "-")
-    ruta = exporter.exportar_semana(semana, nombre)
-    ok(f"  ✅ Archivo generado: {ruta}")
-
-    if ask("¿Subir a Drive como pestaña del maestro? (s/n): ").strip().lower() == "s":
-        d = datetime.strptime(fecha, "%d/%m/%Y")
-        mes = MESES_ES[d.month - 1]
-        nombre_pestana = confirmar_nombre_pestana(fecha)
-        subir_a_drive(ruta, nombre_pestana, f"{mes} - {prog.atleta}", f"{prog.atleta} - {d.year}")
-    else:
-        info("  📱 Podés subir el archivo a Drive manualmente cuando quieras")
+    exportar_y_subir(
+        semana,
+        exporter_cls=BloqueExporter,
+        nombre_archivo=nombre,
+        fecha=fecha,
+        atleta=prog.atleta,
+        tema=None,                  # None = preguntar
+        tema_default=prog.tema,     # Enter deja el del YAML (arena)
+    )
 
 
 def main():

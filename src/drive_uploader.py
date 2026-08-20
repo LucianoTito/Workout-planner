@@ -3,6 +3,7 @@ Subida automática a Google Drive.
 Toma un .xlsx local y lo sube a Drive convirtiéndolo en Google Sheets.
 """
 from pathlib import Path
+from google.auth.exceptions import RefreshError
 from google.auth.transport.requests import Request
 from google.oauth2.credentials import Credentials
 from google_auth_oauthlib.flow import InstalledAppFlow
@@ -27,9 +28,17 @@ class DriveUploader:
         if self.token_path.exists():
             creds = Credentials.from_authorized_user_file(str(self.token_path), SCOPES)
         if not creds or not creds.valid:
+            renovado = False
             if creds and creds.expired and creds.refresh_token:
-                creds.refresh(Request())
-            else:
+                try:
+                    creds.refresh(Request())
+                    renovado = True
+                except RefreshError:
+                    # Token vencido o revocado por Google. En vez de morir con
+                    # un invalid_grant, pedimos permiso de nuevo abriendo el
+                    # navegador (antes había que borrar token.json a mano).
+                    creds = None
+            if not renovado:
                 if not self.credentials_path.exists():
                     raise FileNotFoundError(
                         f"No encontré '{self.credentials_path}'. "
