@@ -473,6 +473,57 @@ def flujo_ver_pesos():
         f"BS={atleta.rm.get('back_squat_cuadriceps', 0)}kg", style="dim")
 
 
+def pedir_dias_bloque(builder):
+    """
+    Pregunta cuántos días por semana se entrenan y muestra qué días arma cada
+    variante, para confirmar antes de generar.
+
+    Devuelve el número elegido, None si el bloque no declara variantes
+    (comportamiento histórico), o False si el usuario canceló.
+    """
+    variantes = builder.resumen_variantes()
+    if not variantes:
+        return None
+
+    opciones = [v["n_dias"] for v in variantes]
+    default = next((v["n_dias"] for v in variantes if v["default"]), opciones[0])
+
+    head("\n  🗓️  ¿Cuántos días por semana vas a entrenar?")
+    tabla = Table(box=box.SIMPLE, header_style=PAL["section"], padding=(0, 1))
+    tabla.add_column("Días", justify="center", style=PAL["num"])
+    tabla.add_column("Estructura", style="white")
+    tabla.add_column("Sesiones", style="dim")
+    for v in variantes:
+        marca = "  ← por defecto" if v["default"] else ""
+        tabla.add_row(f"{v['n_dias']}{marca}", v["descripcion"],
+                      " · ".join(t.replace("DÍA ", "") for t in v["titulos"]))
+    console.print(tabla)
+
+    rango = "/".join(str(o) for o in opciones)
+    resp = ask(f"Días ({rango}) [{default}]: ").strip()
+    if resp == "":
+        return default
+    try:
+        elegido = int(resp)
+    except ValueError:
+        err("  ❌ Ingresá un número")
+        return False
+    if elegido not in opciones:
+        err(f"  ❌ Opción inválida (disponibles: {rango})")
+        return False
+
+    # Preview de la distribución antes de generar
+    var = next(v for v in variantes if v["n_dias"] == elegido)
+    info(f"\n  ℹ️  Con {elegido} días, la semana queda así:")
+    for titulo in var["titulos"]:
+        say(f"    {titulo}")
+    if elegido != default:
+        if ask("¿Confirmar? (s/n): ").strip().lower() != "s":
+            err("  ❌ Cancelado")
+            return False
+    return elegido
+
+
 def flujo_generar_reconstruccion():
     """Flujo para generar una semana del Bloque Reconstrucción (4 semanas)."""
     builder = BloqueBuilder()
@@ -499,8 +550,12 @@ def flujo_generar_reconstruccion():
         err(f"  ❌ Semana inválida (1-{builder.total_semanas})")
         return
 
+    dias = pedir_dias_bloque(builder)
+    if dias is False:                      # cancelado en la confirmación
+        return
+
     fecha = pedir_fecha()
-    semana = builder.construir_semana(semana_num)
+    semana = builder.construir_semana(semana_num, dias=dias)
 
     # Preview en consola
     sep(f"{semana.nombre_bloque.upper()} — SEMANA {semana.numero_semana} de "
@@ -523,7 +578,11 @@ def flujo_generar_reconstruccion():
         return
 
     exporter = BloqueExporter(tema=prog.tema)
-    nombre = f"S{semana.numero_semana}_{prog.nombre.replace(' ', '_')}_{fecha}".replace("/", "-")
+    # El sufijo de días solo se agrega si NO es la variante por defecto,
+    # así los archivos de 4 días conservan el nombre de siempre.
+    sufijo = "" if dias in (None, prog.variante_default) else f"_{dias}dias"
+    nombre = (f"S{semana.numero_semana}_{prog.nombre.replace(' ', '_')}"
+              f"_{fecha}{sufijo}").replace("/", "-")
     ruta = exporter.exportar_semana(semana, nombre)
     ok(f"  ✅ Archivo generado: {ruta}")
 

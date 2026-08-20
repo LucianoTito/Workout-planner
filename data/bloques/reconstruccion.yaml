@@ -16,6 +16,32 @@
 #         - nombre: nombre del ejercicio
 #           nota:   cue técnico fijo (se agrega en todas las semanas)  [opcional]
 #           semanas: [S1, S2, S3, S4]  ← carga/esquema por semana
+#
+# ── VARIANTES DE DÍAS (3 / 4 / 5) ──────────────────────────────
+# Al final del archivo, el bloque `variantes:` define qué días salen según
+# cuántos días por semana se entrenen. La variante 4 es el comportamiento
+# histórico y no cambia nunca.
+#
+#   3 días → [AD, B, C]       AD = día lower fusionado (se COMPONE de A y D)
+#   4 días → [A, B, C, D]     ← igual que siempre
+#   5 días → [A, B, C, D, E]  sesiones cortas (~55 min) + día de accesorios
+#
+# Marcas que SOLO se activan en la variante 5 (`aplicar_mover_a_e: true`):
+#   mover_a_e: true   → esta sección (o este ejercicio suelto) se muda al DÍA E
+#   header_e: "..."   → bajo qué header cae en el Día E (default: su header).
+#                       Dos secciones con el mismo header_e se FUSIONAN allá.
+#
+# Composición del día AD (variante 3) — no se repiten cargas, se referencian:
+#   componer:
+#     - dia: A                     ← copia una sección entera de otro día
+#       seccion: "CALENTAMIENTO"
+#       header: "..."              [opcional] renombra el header
+#       agregar_items: [...]       [opcional] líneas fijas extra al final
+#       excluir: ["Ejercicio X"]   [opcional] saca ejercicios por nombre
+#     - header: "SECCIÓN NUEVA"    ← arma una sección juntando sueltos
+#       items: [...]               [opcional]
+#       tomar:
+#         - {dia: D, ejercicio: "Step-up lateral (cajón 20-25 cm · db)"}
 # ═══════════════════════════════════════════════════════════════
 
 meta:
@@ -38,6 +64,7 @@ dias:
     titulo: "DÍA A"
     subtitulo: "LOWER · Glúteo/Femoral + rodilla"
     duracion: "~75 min"
+    duracion_5: "~55 min"
     secciones:
       - header: "CALENTAMIENTO"
         items:
@@ -64,18 +91,22 @@ dias:
             semanas: ["50-52,5 kg · 3×10", "55 kg · 3×10", "57,5 kg · 3×8-10", "50 kg · 3×10"]
 
       - header: "UNILATERAL + ESTABILIDAD · empezá por izquierda"
+        header_e: "UNILATERAL POSTERIOR"
         ejercicios:
           - nombre: "Split squat (pie atrás en piso)"
             nota: "rodilla al dedo gordo"
             semanas: ["12,5 kg · 2×8/pierna", "12,5 kg · 3×8", "15 kg · 3×8", "12,5 kg · 2×8"]
           - nombre: "RDL a una pierna"
             nota: "glúteo medio"
+            mover_a_e: true
             semanas: ["2×12,5 kg · 2×8/pierna", "2×12,5 kg · 3×8", "2×15 kg · 3×8", "2×12,5 kg · 2×8"]
           - nombre: "Curl femoral"
             nota: "control"
             semanas: ["3×8-10", "3×10", "3×10-12", "3×8"]
 
       - header: "CORE"
+        mover_a_e: true
+        header_e: "CORE"
         items:
           - "Plancha frontal — 3×30s"
           - "Plancha lateral — 3×20s/lado"
@@ -86,6 +117,7 @@ dias:
     titulo: "DÍA B"
     subtitulo: "UPPER · Hombro-safe + brazos"
     duracion: "~75-80 min"
+    duracion_5: "~55 min"
     secciones:
       - header: "CALENTAMIENTO + HOMBRO"
         items:
@@ -114,6 +146,8 @@ dias:
             semanas: ["3×10-12", "3×12", "+carga · 3×10", "3×10"]
 
       - header: "BRAZOS"
+        mover_a_e: true
+        header_e: "BRAZOS"
         ejercicios:
           - nombre: "Curl bíceps barra W"
             semanas: ["5-6 kg/lado · 3×10-12", "6 kg · 3×12", "7 kg · 3×10-12", "6 kg · 3×10"]
@@ -124,6 +158,8 @@ dias:
           - nombre: "Tríceps tras nuca (polea)"
             semanas: ["15 kg · 2×12", "15 kg · 3×12", "17,5 kg · 3×12", "15 kg · 2×12"]
 
+      # Se QUEDA en el Día B aunque se entrene 5 días: es trabajo de manguito
+      # rotador (salud del hombro), no accesorio de volumen.
       - header: "CORE / HOMBRO"
         items:
           - "Pallof press en polea — 2×10/lado"
@@ -164,6 +200,7 @@ dias:
     titulo: "DÍA D"
     subtitulo: "LOWER · Sentadilla + step-up lateral"
     duracion: "~75 min"
+    duracion_5: "~55-60 min"
     secciones:
       - header: "CALENTAMIENTO"
         items:
@@ -199,6 +236,8 @@ dias:
             semanas: ["60 kg · 3×12", "62,5 kg · 3×12", "65 kg · 3×10-12", "60 kg · 3×10"]
 
       - header: "CORE"
+        mover_a_e: true
+        header_e: "CORE"
         items:
           - "Plancha frontal — 3×30s"
           - "Plancha lateral — 3×20s/lado"
@@ -206,3 +245,85 @@ dias:
       - header: "NOTA STEP-UP"
         items:
           - "* Step-up S2: pasar a 3×10 en ambas piernas SOLO cuando la izquierda iguale a la derecha; si aún cuesta, seguí con la serie extra en izq."
+
+  # ─────────────────────────────────────────────────────────────
+  # DÍA E — solo existe en la variante de 5 días.
+  # Aporta su propio calentamiento; el resto de las secciones se INYECTAN
+  # desde A, B y D (las marcadas con `mover_a_e: true`).
+  E:
+    titulo: "DÍA E"
+    subtitulo: "ACCESORIOS · Unilateral posterior + brazos + core"
+    duracion: "~50-55 min"
+    solo_en_variante: 5
+    orden_secciones: ["CALENTAMIENTO", "UNILATERAL POSTERIOR", "BRAZOS", "CORE"]
+    secciones:
+      - header: "CALENTAMIENTO"
+        items:
+          - "Bici suave — 4 min"
+          - "Abducción cadera acostado de lado con banda (tobillos) — 2×15/lado · tensión baja"
+          - "Band pull-apart (palmas arriba) — 2×15 · tensión baja-moderada"
+          - "Rotación externa con banda a 0° (toalla bajo el codo) — 2×15/lado · tensión baja"
+          - "Dead bug — 2×10/lado"
+
+  # ─────────────────────────────────────────────────────────────
+  # DÍA AD — solo existe en la variante de 3 días.
+  # Fusiona los dos lower (A y D) en una sola sesión que cubre bisagra +
+  # sentadilla. NO repite cargas: las referencia desde A y D, así que si
+  # cambiás un peso allá arriba, acá se actualiza solo.
+  #
+  # Criterios de la fusión:
+  #   · Wall sit: se usa el de A (5×40s); el de D no se suma.
+  #   · Hip thrust: aparece 1 sola vez (viene con la bisagra del Día A).
+  #   · Split squat: NO entra — pisa el mismo patrón que el step-up lateral
+  #     y sacarlo baja la sesión de ~100 a ~87 min.
+  #   · Curl femoral: se usa el UNILATERAL de D (sirve más para emparejar
+  #     la pierna izquierda que el bilateral de A).
+  AD:
+    titulo: "DÍA A"
+    subtitulo: "LOWER completo · bisagra + sentadilla"
+    duracion: "~85-90 min"
+    solo_en_variante: 3
+    componer:
+      - dia: A
+        seccion: "CALENTAMIENTO"
+        agregar_items:
+          - "Sentadilla al aire — 2×10 · rango sin dolor"
+
+      - dia: A
+        seccion: "ISOMETRÍA · tendón rotuliano"
+
+      - dia: A
+        seccion: "FUERZA · bisagra de cadera"
+
+      - dia: D
+        seccion: "FUERZA · patrón sentadilla"
+        excluir: ["Curl femoral unilateral en máquina"]
+
+      - header: "ESTABILIDAD · foco rodilla izq"
+        tomar:
+          - {dia: D, ejercicio: "Step-up lateral (cajón 20-25 cm · db)"}
+          - {dia: A, ejercicio: "RDL a una pierna"}
+          - {dia: D, ejercicio: "Curl femoral unilateral en máquina"}
+
+      - dia: A
+        seccion: "CORE"
+
+      - dia: D
+        seccion: "NOTA STEP-UP"
+
+# ═══════════════════════════════════════════════════════════════
+# VARIANTES — qué días salen según cuántos se entrene por semana
+# ═══════════════════════════════════════════════════════════════
+variantes:
+  3:
+    dias: [AD, B, C]
+    descripcion: "Lower completo · Upper · Zona 2"
+  4:
+    dias: [A, B, C, D]
+    descripcion: "Lower bisagra · Upper · Zona 2 · Lower sentadilla"
+  5:
+    dias: [A, B, C, D, E]
+    aplicar_mover_a_e: true
+    descripcion: "Sesiones cortas (~55 min) + día de accesorios"
+
+variante_default: 4
