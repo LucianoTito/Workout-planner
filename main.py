@@ -142,6 +142,70 @@ def listar_atletas() -> list[str]:
     return [f.stem for f in carpeta.glob("*.yaml")]
 
 
+def listar_bloques() -> list[dict]:
+    """
+    Lista los bloques disponibles en data/bloques/, leyendo solo el `meta:`
+    de cada YAML (no construye el bloque entero: es para pintar el menú).
+
+    Devuelve [{"clave", "nombre", "atleta", "semanas"}], ordenados por nombre.
+    Un YAML roto se saltea con un aviso en vez de tumbar el CLI.
+    """
+    carpeta = Path("data/bloques")
+    if not carpeta.exists():
+        return []
+
+    bloques = []
+    for archivo in sorted(carpeta.glob("*.yaml")):
+        try:
+            with open(archivo, "r", encoding="utf-8") as f:
+                meta = (yaml.safe_load(f) or {}).get("meta", {})
+        except yaml.YAMLError as e:
+            warn(f"  ⚠️  Saltée {archivo.name}: YAML inválido ({e.__class__.__name__})")
+            continue
+        bloques.append({
+            "clave": archivo.stem,
+            "nombre": meta.get("nombre", archivo.stem),
+            "atleta": meta.get("atleta", ""),
+            "semanas": meta.get("total_semanas", "?"),
+        })
+    return bloques
+
+
+def seleccionar_bloque() -> str | None:
+    """
+    Deja elegir qué bloque generar. Si hay uno solo, lo devuelve sin preguntar.
+    Devuelve la clave del bloque (nombre de archivo sin .yaml), o None si
+    no hay ninguno o el usuario canceló.
+    """
+    bloques = listar_bloques()
+    if not bloques:
+        err("  ❌ No encontré ningún bloque en data/bloques/")
+        return None
+    if len(bloques) == 1:
+        return bloques[0]["clave"]
+
+    head("\n  🧱 Bloques disponibles:")
+    tabla = Table(box=box.ROUNDED, header_style=PAL["section"], padding=(0, 1))
+    tabla.add_column("#", justify="center", style=PAL["num"])
+    tabla.add_column("Bloque", style="white")
+    tabla.add_column("Atleta", style="dim")
+    tabla.add_column("Sem.", justify="center", style="dim")
+    for i, b in enumerate(bloques, 1):
+        tabla.add_row(str(i), escape(b["nombre"]), escape(b["atleta"]), str(b["semanas"]))
+    console.print(tabla)
+
+    resp = ask(f"Bloque (1-{len(bloques)}): ").strip()
+    try:
+        idx = int(resp)
+    except ValueError:
+        err("  ❌ Ingresá un número")
+        return None
+    if not 1 <= idx <= len(bloques):
+        err(f"  ❌ Opción inválida (1-{len(bloques)})")
+        return None
+    return bloques[idx - 1]["clave"]
+
+
 def mostrar_banner():
     console.print(Panel(
         f"[{PAL['title']}]🏋️  PLANIFICADOR DE ENTRENAMIENTO[/]\n[dim]Ciclo de 8 semanas[/]",
@@ -157,7 +221,7 @@ def menu_principal():
     tabla.add_row("1", "Generar semana de entrenamiento")
     tabla.add_row("2", "Ver ciclo completo (resumen)")
     tabla.add_row("3", "Ver RM y pesos por semana")
-    tabla.add_row("4", "Generar semana de Reconstrucción")
+    tabla.add_row("4", "Generar semana de bloque")
     tabla.add_row("5", f"[{PAL['danger']}]Salir[/]")
     console.print(tabla)
     return console.input(f"\n  [{PAL['prompt']}]→[/] Opción (1-5): ").strip()
@@ -583,9 +647,17 @@ def pedir_dias_bloque(builder):
     return elegido
 
 
-def flujo_generar_reconstruccion():
-    """Flujo para generar una semana del Bloque Reconstrucción (4 semanas)."""
-    builder = BloqueBuilder()
+def flujo_generar_bloque():
+    """Flujo para generar una semana de un bloque data-driven (data/bloques/)."""
+    clave = seleccionar_bloque()
+    if clave is None:
+        return
+
+    try:
+        builder = BloqueBuilder(nombre_bloque=clave)
+    except (FileNotFoundError, KeyError, ValueError) as e:
+        err(f"  ❌ No pude cargar el bloque '{clave}': {e}")
+        return
     prog = builder.program
 
     console.print(Panel(
@@ -659,7 +731,7 @@ def main():
         elif opcion == "3":
             flujo_ver_pesos()
         elif opcion == "4":
-            flujo_generar_reconstruccion()
+            flujo_generar_bloque()
         elif opcion == "5":
             console.print(f"\n  [{PAL['accent']}]👋 ¡Hasta la próxima! A romperla en el box 💪[/]\n")
             break
