@@ -1,0 +1,321 @@
+# ═══════════════════════════════════════════════════════════════
+# BLOQUE 2 · RECOMPOSICIÓN — 4 SEMANAS (Luciano)
+# ═══════════════════════════════════════════════════════════════
+# Sucesor del Bloque 1 · Recomposición (inicio B1: 31/08/2026).
+# Prioridades (en orden): 1) descenso de grasa / recomposición
+#   2) rodilla izq (operada + artrosis) 3) masa muscular y fuerza
+#   4) Zona 2 / capacidad aeróbica.  Hombro: dolor = cero.
+#
+# HOMBRO — cambio respecto al Bloque 1 (confirmado por el atleta):
+#   · PERMITIDO: press de hombro con mancuernas SOLO sentado en el piso, con
+#     la espalda apoyada en el rack y con pesos moderados (sin subir carga).
+#     Queda EN PRUEBA: si pincha, sale y vuelve el landmine press.
+#   · Sigue prohibido: cualquier otra variante de press de hombro (push press,
+#     jerk, thruster, de pie), vuelos laterales, press banca, fondos, ring dips,
+#     muscle-ups.
+#
+# Reglas de diseño de este bloque:
+#   - Sesión ≤ 1:15. Máximo 4 bloques de trabajo por sesión.
+#     Calentamiento integrado de ~10 min (la rehab NO se saca, se compacta).
+#   - Regla del reloj: si a los 60 min no terminaste el último bloque,
+#     el finisher se cae (nunca el trabajo unilateral).
+#   - Un solo bloque de potencia por sesión (hang power clean en FA,
+#     seated box jump en FB). Cuenta dentro del tope de impacto.
+#   - S4 = descarga (menos volumen, misma técnica).
+#
+# VARIANTES (días que se cargan cada semana desde el planner):
+#   2 días → [FC, PACING]           Fuerza combinada + Pacing Zona 2
+#   3 días → [FA, PACING, FB]       Fuerza A + Pacing + Fuerza B  ← default
+#   4 días → [FA, AERO, PACING, FB] suma Aeróbico (Zona 2 variada)
+#
+# Claves de día iguales a las del Bloque 1 (FA · PACING · FB · AERO).
+# FC compone por REFERENCIA (calentamiento, ejercicios y cierre): si cambia
+# una carga o una línea de rehab en FA o FB, FC se actualiza sola.
+#
+# CARGAS DE PARTIDA: son estimadas desde lo que se conversó al cerrar el
+# Bloque 1 y están marcadas "(orientativa)" en la S1. Donde dice
+# "carga actual", poné el último peso real limpio.
+# ═══════════════════════════════════════════════════════════════
+
+meta:
+  nombre: "Bloque 2 · Recomposición"
+  atleta: "Luciano"
+  tema: "arena"
+  total_semanas: 4
+  semana_deload: 4
+  nota_global: "Prioridad 1: pérdida de grasa — la Zona 2 no se negocia · Rodilla izq y hombro der: dolor = cero · Unilateral: siempre empezá por la IZQUIERDA; la derecha iguala sus reps · Sesión ≤ 1:15 (si a los 60 min no cerraste el último bloque, se cae el finisher) · Impacto: hasta 60 box jumps O hasta 200 dobles por WOD, nunca los dos en volumen alto · Días libres: caminata opcional de 30-40 min, ritmo cómodo, sin buscar pulso. · Fútbol = sesión de intensidad: no el día siguiente a FUERZA A (idealmente tampoco el anterior), no el mismo día que PACING, y si la semana ya tiene 4 sesiones reemplaza a la caminata. Anotar cómo amanecen rodilla y zona lumbar."
+  fases:
+    - "Base"
+    - "Progresión 1"
+    - "Progresión 2"
+    - "Descarga (deload)"
+
+dias:
+
+  # ─────────────────────────────────────────────────────────────
+  FA:
+    titulo: "FUERZA A"
+    subtitulo: "Potencia + Cadera / Rodilla + Tríceps"
+    duracion: "~70 min"
+    secciones:
+      - header: "CALENTAMIENTO · rodilla y cadera (~10 min)"
+        items:
+          - "Bici o remo suave — 4 min"
+          - "Abducción de cadera acostado de lado con banda — 2×15/lado · empezá por IZQ · tensión baja"
+          - "Caminata lateral / monster walk con banda — 2×10 pasos/lado · empezá por IZQ"
+          - "TKE con banda — 2×15/lado"
+          - "Dead bug — 2×10/lado"
+          - "Wall sit (~60°) — 2×45s · desc 45s · rango sin dolor"
+
+      - header: "1 · POTENCIA"
+        ejercicios:
+          - nombre: "Hang power clean"
+            nota: "desc 1:30 · manda la VELOCIDAD de la barra: si sube rápida y te metís sin esfuerzo, subí 2,5-5 kg la semana siguiente; si se enlentece, quedate · S3: se puede cambiar por singles de squat clean 60-65 kg, sin encadenar"
+            semanas: ["5×2 · 55 kg (orientativa)", "5×2 · 57,5 kg", "5×2 · 60 kg", "4×2 · 50 kg"]
+
+      - header: "2 · FUERZA · sentadilla + antirrotación"
+        ejercicios:
+          - nombre: "Front squat"
+            nota: "3s bajando · RPE 7 · desc 2:00 · si se acelera la bajada, bajá el peso"
+            semanas: ["62,5 kg (orientativa) · 4×6", "65 kg · 4×6", "67,5 kg · 4×6", "55 kg · 3×6"]
+          - nombre: "Pallof press en polea (de rodillas), en el descanso del front squat"
+            nota: "IZQ primero · carga que cueste de verdad"
+            semanas: ["3×10/lado", "3×10/lado", "3×12/lado", "2×10/lado"]
+
+      - header: "3 · BISAGRA + ISQUIOTIBIAL — superserie"
+        items:
+          - "Superserie: hip thrust → curl femoral IZQ → curl femoral DER → desc 1:30"
+        ejercicios:
+          - nombre: "Hip thrust"
+            nota: "2s pausa arriba · RPE 7"
+            semanas: ["70 kg · 3×10", "72,5 kg · 3×10", "75 kg · 3×8-10", "65 kg · 3×10"]
+          - nombre: "Curl femoral unilateral"
+            nota: "3s excéntrico · IZQ primero · serie extra IZQ · carga actual: subí SOLO cuando la IZQ haga sus reps limpias 3 sesiones seguidas"
+            semanas: ["IZQ 4×8 / DER 3×8", "IZQ 4×10 / DER 3×10", "IZQ 4×8 / DER 3×8 (+1 ladrillo si se cumplió la regla)", "IZQ 3×8 / DER 2×8"]
+
+      - header: "4 · UNILATERAL + TRÍCEPS — superserie"
+        items:
+          - "Superserie: step-up IZQ → step-up DER → pushdown → desc 1:00"
+        ejercicios:
+          - nombre: "Step-up lateral (cajón 40 cm · db)"
+            nota: "IZQ primero · bajá 2-3s · 15 kg SOLO si la izquierda iguala a la derecha"
+            semanas: ["12,5 kg · 3×8/pierna", "12,5 kg · 3×10/pierna", "12,5-15 kg · 3×8/pierna", "12,5 kg · 2×8/pierna"]
+          - nombre: "Tríceps pushdown (polea)"
+            semanas: ["25 kg · 3×12", "25 kg · 3×12", "27,5 kg · 3×10-12", "25 kg · 2×12"]
+
+      - header: "FINISHER · WOD corto (solo si el reloj marca ≤ 60 min)"
+        items:
+          - "6-10 min · ritmo sostenido, NO a fondo (terminás pudiendo hablar de a frases cortas)"
+          - "Sí: remo · ski · assault · wall balls · burpees · kettlebell swing · farmer carry · front rack carry · overhead kb carry"
+          - "Evitar: sentadilla y bisagra con carga (ya se trabajaron hoy)"
+          - "WOD elegido: ______________________________"
+
+      - header: "REGISTRAR"
+        items:
+          - "Carga del hang power clean y cómo se sintió la barra · carga usada y reps IZQ en curl femoral · sensación rodilla/hombro/zona lumbar al día siguiente."
+
+  # ─────────────────────────────────────────────────────────────
+  FB:
+    titulo: "FUERZA B"
+    subtitulo: "Potencia + Tracción / Gimnásticos + Bíceps"
+    duracion: "~70 min"
+    secciones:
+      - header: "CALENTAMIENTO · manguito rotador (~10 min)"
+        items:
+          - "Remo o ski suave — 4 min"
+          - "Circuito de 2 rondas:"
+          - "Reverse fly inclinado (mancuernas livianas) — 20 reps"
+          - "Rotación externa con banda a 0° (toalla bajo el codo) — 15/lado · tensión baja"
+          - "Face pull con banda — 20 reps · TENSIÓN MUY BAJA, no subir"
+          - "Serrato punch con banda — 12 reps · se puede progresar tensión"
+          - "Prone IYT — 5 c/letra · sin peso"
+          - "Band pull-apart (palmas arriba) — 15 reps"
+          - "Colgado activo en barra, escápulas abajo — 15s"
+
+      - header: "1 · POTENCIA (con el cuerpo fresco, antes de todo lo pesado)"
+        ejercicios:
+          - nombre: "Seated box jump"
+            nota: "desde sentado en cajón/banco · caé en cuarto de sentadilla sobre el cajón y bajá CAMINANDO · desc 1:30-2:00 · cuenta dentro del tope de impacto"
+            semanas: ["3×3 · altura cómoda", "3×3 · misma altura", "3×3 · subir un poco la altura (solo si todo salió sin dolor)", "2×3 · altura cómoda"]
+
+      - header: "2 · TRACCIÓN + SKILL + BISAGRA UNILATERAL"
+        items:
+          - "Superserie: dominada estricta → RDL IZQ → RDL DER → desc 1:45"
+        ejercicios:
+          - nombre: "Skill C2B (camino al C2B)"
+            nota: "primero, con el cuerpo fresco · calidad, NUNCA al fallo técnico · anotá cuántas salieron limpias seguidas"
+            semanas: ["TEST: máx C2B seguidas, 1 intento, parando 1 rep antes del fallo técnico", "6×3 · desc 1:00", "6×3 · desc 1:00", "4×3 · desc 1:00"]
+          - nombre: "Dominada estricta"
+            nota: "2s bajando · dejar 3-4 reps en reserva"
+            semanas: ["4×6", "4×7", "4×8", "3×6"]
+          - nombre: "RDL unilateral con mancuernas"
+            nota: "IZQ primero · 3s bajando · pelvis quieta · carga actual"
+            semanas: ["2×15 kg (orientativa) · 3×8/pierna", "2×15 kg · 3×10/pierna", "2×17,5 kg · 3×8/pierna", "2×15 kg · 2×8/pierna"]
+
+      - header: "3 · EMPUJE SEGURO + BÍCEPS — superserie"
+        items:
+          - "Superserie: press → curl W → desc 1:15"
+          - "El press sentado con mancuernas está EN PRUEBA (decidís más adelante si queda). Si algún día pincha el hombro, se saca y vuelve landmine press 15 kg · 3×8/brazo."
+        ejercicios:
+          - nombre: "Press de hombro sentado en el piso, espalda apoyada en el caño del rack (2 db)"
+            nota: "EN PRUEBA · peso moderado, sin subir carga · anotá cómo amanece el hombro al día siguiente"
+            semanas: ["2×17,5 kg · 3×8", "2×17,5 kg · 3×8", "2×17,5 kg · 3×8", "2×17,5 kg · 2×8"]
+          - nombre: "Curl bíceps barra W"
+            nota: "10 kg/lado · 2s bajando · subí REPS antes que carga"
+            semanas: ["3×10", "3×11", "3×12", "2×10"]
+
+      - header: "4 · CORE + BÍCEPS — superserie"
+        items:
+          - "Superserie: dragon flag → plank pull-through → curl martillo → desc 1:30"
+        ejercicios:
+          - nombre: "Dragon flag"
+            nota: "bajada 4s · lumbar sin despegarse (si se despega o aparece molestia lumbar, escalá a tuck / negativo)"
+            semanas: ["3×2", "3×3", "4×3", "3×2"]
+          - nombre: "Plank pull-through con mancuerna"
+            nota: "empezá arrastrando hacia la IZQ · cadera quieta, sin rotar"
+            semanas: ["20 kg · 3×8/lado", "20 kg · 3×10/lado", "22,5 kg · 3×8/lado", "20 kg · 2×8/lado"]
+          - nombre: "Curl martillo"
+            nota: "10 kg · 2s bajando"
+            semanas: ["3×10", "3×10", "3×12", "2×10"]
+
+      - header: "FINISHER · WOD corto (solo si el reloj marca ≤ 60 min)"
+        items:
+          - "6-10 min · ritmo sostenido, NO a fondo"
+          - "Evitar: volumen alto de tracción (nada de WODs con 50+ pull-ups o C2B)"
+          - "Sí: wall balls · estocadas caminando · remo · assault · kettlebell · trineo (10 m) · carries"
+          - "WOD elegido: ______________________________"
+
+      - header: "CIERRE · manguito"
+        items:
+          - "Rotación externa en polea — 1×20/lado · liviano, sin buscar carga"
+
+      - header: "REGISTRAR"
+        items:
+          - "Cuántas C2B seguidas salieron limpias · sensación del hombro al día siguiente (sobre todo tras el press sentado)."
+
+  # ─────────────────────────────────────────────────────────────
+  PACING:
+    titulo: "PACING"
+    subtitulo: "Zona 2 en assault bike · RPM de referencia"
+    duracion: "~60-70 min"
+    secciones:
+      - header: "CALENTAMIENTO · prehab"
+        items:
+          - "Máquina muy suave, progresivo — 6 min"
+          - "Abducción de cadera con banda — 2×15/lado · empezá por IZQ"
+          - "Rotación externa con banda a 0° — 2×15/lado · tensión baja"
+          - "Band pull-apart — 2×15"
+
+      - header: "ZONA 2 · trabajo continuo"
+        items:
+          - "Máquina — Assault bike · SIEMPRE assault bike: este día es el ancla del pacing"
+          - "Pulsaciones objetivo — 120-130 ppm (tu Zona 2: 111-130 ppm · techo duro 130; si pasás de 135, parás y caminás hasta volver a 125)"
+          - "RPM de referencia — ~45 RPM (base) · manda el pulso, NO los RPM · el RPM es la métrica que se anota"
+          - "Test de conversación: tenés que poder hablar de corrido · respiración nasal"
+        ejercicios:
+          - nombre: "Duración efectiva"
+            semanas: ["45 min", "50 min", "55 min", "45 min"]
+
+      - header: "CIERRE · prehab"
+        items:
+          - "Vuelta a la calma en máquina — 5 min"
+          - "Face pull con banda — 2×20 · TENSIÓN MUY BAJA, no subir"
+          - "Serrato punch con banda — 2×12"
+          - "TKE con banda — 2×15/lado"
+          - "Movilidad de cadera y hombro — 3 min"
+
+      - header: "REGLAS"
+        items:
+          - "SIN WOD este día, ni antes ni después. Con intensidad deja de ser Zona 2."
+          - "Anotá RPM y pulsaciones cada semana. Si sostenés más RPM al mismo pulso, mejoraste: ese es el progreso, no la duración."
+
+  # ─────────────────────────────────────────────────────────────
+  # AERO — segunda Zona 2 [opcional · va 2º en la variante de 4: es el día corto]
+  # Integra el catálogo de zona 2 igual que el AERO del Bloque 1.
+  # ─────────────────────────────────────────────────────────────
+  AERO:
+    titulo: "AERÓBICO"
+    subtitulo: "Zona 2 · máquina rotativa o mixto"
+    duracion: "~45-55 min"
+    secciones:
+      - header: "CALENTAMIENTO"
+        items:
+          - "Máquina muy suave, progresivo — 5 min"
+          - "Abducción de cadera con banda — 2×15/lado · empezá por IZQ"
+          - "Rotación externa con banda a 0° — 2×15/lado · tensión baja"
+
+      - header: "ZONA 2 · trabajo continuo"
+        items:
+          - "Máquina — remo, ski, bici o cinta inclinada: acá SÍ rota (día de la variedad)."
+          - "Pulsaciones objetivo — 120-130 ppm · techo duro 130"
+          - "FUERA: nada por encima de la cabeza · sin saltos ni dobles · sin trabajo limitado por agarre · sin estocadas cargadas."
+        ejercicios:
+          - nombre: "Duración efectiva"
+            semanas: ["40 min", "40 min", "45 min", "35 min"]
+
+      - header: "SESIÓN SUGERIDA · del catálogo de zona 2"
+        generador: "z2"
+        items:
+          - "ELEGÍ UNA: o el bloque de máquina de arriba, o esta sesión. No se suman ni se encadenan."
+          - "Si hacés esta, manda SU duración, no la de arriba. Sale automático de data/z2_catalog.yaml."
+
+      - header: "CIERRE"
+        items:
+          - "Vuelta a la calma — 5 min · movilidad"
+
+      - header: "REGLAS"
+        items:
+          - "Mismas reglas que PACING: manda el pulso, sin WOD ese día."
+          - "Si la semana viene corta, esta es la primera sesión que se cae — nunca el día PACING."
+
+  # ─────────────────────────────────────────────────────────────
+  # FC: día fusionado para semanas de 2 sesiones (se compone de FA y FB).
+  # Todo por referencia: el calentamiento es el de FA (con el wall sit) más
+  # las bandas de hombro, y el cierre de manguito es el de FB.
+  # ─────────────────────────────────────────────────────────────
+  FC:
+    titulo: "FUERZA COMBINADA"
+    subtitulo: "Potencia + Sentadilla + Bisagra + Tracción/Bíceps"
+    duracion: "~75-80 min"
+    solo_en_variante: 2
+    componer:
+      - dia: FA
+        seccion: "CALENTAMIENTO · rodilla y cadera (~10 min)"
+        header: "CALENTAMIENTO · rodilla + hombro (~12 min)"
+        agregar_items:
+          - "Reverse fly inclinado — 2×20 · Face pull con banda (tensión MUY baja) — 2×20"
+          - "Rotación externa con banda a 0° — 2×15/lado · Serrato punch con banda — 2×12"
+      - header: "1 · POTENCIA"
+        tomar:
+          - {dia: FA, ejercicio: "Hang power clean"}
+      - header: "2 · FUERZA · sentadilla"
+        tomar:
+          - {dia: FA, ejercicio: "Front squat"}
+      - header: "3 · BISAGRA + ISQUIOTIBIAL — superserie"
+        items:
+          - "Superserie: hip thrust → curl femoral IZQ → curl femoral DER → desc 1:30"
+        tomar:
+          - {dia: FA, ejercicio: "Hip thrust"}
+          - {dia: FA, ejercicio: "Curl femoral unilateral"}
+      - header: "4 · TRACCIÓN + BÍCEPS — superserie"
+        items:
+          - "Superserie: dominada estricta → curl W → desc 1:30"
+          - "Con 2 sesiones/semana no entran: seated box jump, C2B, step-up, RDL unilateral, Pallof, press ni core. Son lo primero que se pierde. La rodilla y la Zona 2 no se tocan."
+        tomar:
+          - {dia: FB, ejercicio: "Dominada estricta"}
+          - {dia: FB, ejercicio: "Curl bíceps barra W"}
+      - dia: FB
+        seccion: "CIERRE · manguito"
+
+variantes:
+  2:
+    dias: [FC, PACING]
+    descripcion: "Fuerza combinada · Pacing Zona 2"
+  3:
+    dias: [FA, PACING, FB]
+    descripcion: "Fuerza A · Pacing Zona 2 · Fuerza B"
+  4:
+    dias: [FA, AERO, PACING, FB]
+    descripcion: "Fuerza A · Aeróbico Z2 · Pacing Z2 · Fuerza B"
+
+variante_default: 3
