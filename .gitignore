@@ -17,3 +17,7 @@ output/*.xlsx
 .idea/
 .DS_Store
 Thumbs.db
+# Variantes de credenciales
+token.json*
+credentials*.json
+*.vencido
