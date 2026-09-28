@@ -327,6 +327,19 @@ def test_resumen_para_el_cli_describe_cada_dia():
                 assert d.get(campo), f"{v['n_dias']}d · {d.get('titulo')}: falta {campo}"
 
 
+def test_t2b_en_fuerza_b_con_su_progresion():
+    """El T2B vuelve (estaba en el B1): bloque 4 de FUERZA B, en 3 y 4 días."""
+    b = BloqueBuilder(nombre_bloque=NOMBRE)
+    esperado = ["5×6", "5×7", "4×8-10 kipping", "3×5"]
+    for n in (3, 4):
+        for s in SEMANAS:
+            fb = _lineas_dia(b.construir_semana(s, dias=n), "FUERZA B")
+            t2b = [l for l in fb if l.startswith("Toes to bar")]
+            assert t2b, f"{n}d · S{s}: FUERZA B sin T2B"
+            assert esperado[s - 1] in t2b[0], f"{n}d · S{s}: {t2b[0]}"
+            assert "sin fallo" in t2b[0], f"{n}d · S{s}: falta el cue -> {t2b[0]}"
+
+
 def test_convive_con_el_bloque_1():
     b1 = BloqueBuilder(nombre_bloque="recomposicion")
     assert b1.program.nombre == "Bloque 1 · Recomposición"

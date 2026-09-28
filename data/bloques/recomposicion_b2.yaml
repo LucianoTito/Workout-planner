@@ -118,7 +118,7 @@ dias:
   FB:
     titulo: "FUERZA B"
     subtitulo: "Potencia + Tracción / Gimnásticos + Bíceps"
-    duracion: "~70 min"
+    duracion: "~75 min"
     secciones:
       - header: "CALENTAMIENTO · manguito rotador (~10 min)"
         items:
@@ -164,16 +164,19 @@ dias:
             nota: "10 kg/lado · 2s bajando · subí REPS antes que carga"
             semanas: ["3×10", "3×11", "3×12", "2×10"]
 
-      - header: "4 · CORE + BÍCEPS — superserie"
+      - header: "4 · CORE GIMNÁSTICO + BÍCEPS — superserie"
         items:
-          - "Superserie: dragon flag → plank pull-through → curl martillo → desc 1:30"
+          - "Superserie: T2B → plank pull-through → dragon flag → curl martillo → desc 1:30"
         ejercicios:
-          - nombre: "Dragon flag"
-            nota: "bajada 4s · lumbar sin despegarse (si se despega o aparece molestia lumbar, escalá a tuck / negativo)"
-            semanas: ["3×2", "3×3", "4×3", "3×2"]
+          - nombre: "Toes to bar"
+            nota: "controlado, sin fallo · primero del bloque: es el más técnico"
+            semanas: ["5×6", "5×7", "4×8-10 kipping", "3×5"]
           - nombre: "Plank pull-through con mancuerna"
             nota: "empezá arrastrando hacia la IZQ · cadera quieta, sin rotar"
             semanas: ["20 kg · 3×8/lado", "20 kg · 3×10/lado", "22,5 kg · 3×8/lado", "20 kg · 2×8/lado"]
+          - nombre: "Dragon flag"
+            nota: "bajada 4s · lumbar sin despegarse (si se despega o aparece molestia lumbar, escalá a tuck / negativo)"
+            semanas: ["3×2", "3×3", "4×3", "3×2"]
           - nombre: "Curl martillo"
             nota: "10 kg · 2s bajando"
             semanas: ["3×10", "3×10", "3×12", "2×10"]
