@@ -68,9 +68,9 @@ def test_variantes_declaradas():
 def test_estructura_por_variante():
     b = _b()
     esperado = {
-        3: ["DÍA F1", "DÍA Z2", "DÍA F2"],
-        4: ["DÍA F1", "DÍA Z2", "DÍA F2", "DÍA Z2B"],
-        5: ["DÍA F1", "DÍA Z2", "DÍA F2", "DÍA Z2B", "DÍA W"],
+        3: ["FUERZA A", "PACING", "FUERZA B"],
+        4: ["FUERZA A", "AERÓBICO", "PACING", "FUERZA B"],
+        5: ["FUERZA A", "AERÓBICO", "PACING", "FUERZA B", "WOD"],
     }
     for n, titulos in esperado.items():
         assert [d.titulo for d in b.construir_semana(1, dias=n).dias] == titulos
@@ -81,14 +81,42 @@ def test_piso_innegociable_en_toda_variante():
     b = _b()
     for n in (3, 4, 5):
         titulos = [d.titulo for d in b.construir_semana(1, dias=n).dias]
-        for obligatorio in ("DÍA F1", "DÍA Z2", "DÍA F2"):
+        for obligatorio in ("FUERZA A", "PACING", "FUERZA B"):
             assert obligatorio in titulos, f"{n} días: falta {obligatorio}"
 
 
 def test_dia_w_solo_en_variante_5():
     b = _b()
     for n in (3, 4):
-        assert "DÍA W" not in [d.titulo for d in b.construir_semana(1, dias=n).dias]
+        assert "WOD" not in [d.titulo for d in b.construir_semana(1, dias=n).dias]
+
+
+def test_el_dia_mas_corto_va_segundo():
+    """
+    Los martes son largos y la 2ª sesión de la semana cae en martes el 90% de
+    las semanas: ahí tiene que ir la sesión más corta.
+
+    El más corto se calcula de las duraciones declaradas en el YAML, no de un
+    orden hardcodeado: si mañana cambian las duraciones, el test sigue midiendo
+    la intención y no una lista.
+
+    La variante de 3 queda afuera a propósito: esas semanas no incluyen martes.
+    """
+    import re
+    b = _b()
+
+    def techo_min(clave):
+        """'~35-45 min' → 45. Se compara por el techo declarado."""
+        nums = [int(x) for x in re.findall(r"\d+", b.program.dias[clave].duracion)]
+        return max(nums) if nums else 0
+
+    for n in (4, 5):
+        claves = b.program.variantes[n].dias
+        duraciones = {c: techo_min(c) for c in claves}
+        mas_corto = min(duraciones, key=duraciones.get)
+        assert claves[1] == mas_corto, (
+            f"{n} días: el 2º día es {claves[1]} ({duraciones[claves[1]]} min), "
+            f"pero el más corto es {mas_corto} ({duraciones[mas_corto]} min)")
 
 
 def test_semana_fuera_de_rango():
@@ -117,7 +145,7 @@ def test_progresion_front_squat():
     """Sube S1→S3 y baja en el deload."""
     b = _b()
     def fs(s):
-        return [l for l in _lineas_dia(b.construir_semana(s), "DÍA F1")
+        return [l for l in _lineas_dia(b.construir_semana(s), "FUERZA A")
                 if l.startswith("Front squat")][0]
     assert "60 kg" in fs(1)
     assert "62,5 kg" in fs(2)
@@ -128,7 +156,7 @@ def test_progresion_front_squat():
 def test_progresion_hip_thrust():
     b = _b()
     def ht(s):
-        return [l for l in _lineas_dia(b.construir_semana(s), "DÍA F1")
+        return [l for l in _lineas_dia(b.construir_semana(s), "FUERZA A")
                 if l.startswith("Hip thrust")][0]
     assert "65 kg" in ht(1) and "70 kg" in ht(2) and "75 kg" in ht(3)
     assert "60 kg · 2×10" in ht(4)
@@ -137,7 +165,7 @@ def test_progresion_hip_thrust():
 def test_zona_2_sube_y_descarga():
     b = _b()
     def dur(s):
-        return [l for l in _lineas_dia(b.construir_semana(s), "DÍA Z2")
+        return [l for l in _lineas_dia(b.construir_semana(s), "PACING")
                 if l.startswith("Duración efectiva")][0]
     assert "45 min" in dur(1)
     assert "50 min" in dur(2)
@@ -149,7 +177,7 @@ def test_cues_fijos_se_repiten():
     """Los cues técnicos deben aparecer en las 4 semanas."""
     b = _b()
     for sem in range(1, 5):
-        ht = [l for l in _lineas_dia(b.construir_semana(sem), "DÍA F1")
+        ht = [l for l in _lineas_dia(b.construir_semana(sem), "FUERZA A")
               if l.startswith("Hip thrust")][0]
         assert "2s pausa arriba" in ht, f"S{sem}: falta el cue -> {ht}"
 
@@ -166,7 +194,7 @@ def test_curl_femoral_serie_extra_izquierda():
     import re
     b = _b()
     for sem in range(1, 5):
-        linea = [l for l in _lineas_dia(b.construir_semana(sem), "DÍA F1")
+        linea = [l for l in _lineas_dia(b.construir_semana(sem), "FUERZA A")
                  if l.startswith("Curl femoral unilateral")][0]
         izq = int(re.search(r"IZQ (\d+)×", linea).group(1))
         der = int(re.search(r"DER (\d+)×", linea).group(1))
@@ -194,7 +222,7 @@ def test_dia_zona_2_no_lleva_wod():
     for n in (3, 4, 5):
         for sem in range(1, 5):
             semana = b.construir_semana(sem, dias=n)
-            for titulo in ("DÍA Z2", "DÍA Z2B"):
+            for titulo in ("PACING", "AERÓBICO"):
                 if titulo not in [d.titulo for d in semana.dias]:
                     continue
                 headers = " ".join(_headers_dia(semana, titulo)).upper()
@@ -206,7 +234,7 @@ def test_dia_zona_2_no_lleva_wod():
 def test_dias_de_fuerza_llevan_finisher():
     """La contracara: F1 y F2 sí tienen su WOD corto."""
     b = _b()
-    for titulo in ("DÍA F1", "DÍA F2"):
+    for titulo in ("FUERZA A", "FUERZA B"):
         headers = " ".join(_headers_dia(b.construir_semana(1), titulo)).upper()
         assert "FINISHER" in headers, f"{titulo} sin finisher"
 
@@ -229,7 +257,7 @@ def test_presupuesto_maximo_3_wods():
 def test_movimientos_prohibidos_declarados():
     """Los filtros del día W tienen que nombrar lo que está vedado."""
     b = _b()
-    lineas = " ".join(_lineas_dia(b.construir_semana(1, dias=5), "DÍA W")).lower()
+    lineas = " ".join(_lineas_dia(b.construir_semana(1, dias=5), "WOD")).lower()
     for prohibido in ("press de hombro", "vuelos laterales", "press banca",
                       "fondos", "muscle-ups", "pistols"):
         assert prohibido in lineas, f"Falta declarar como prohibido: {prohibido}"
@@ -248,7 +276,7 @@ def test_sin_press_por_encima_de_la_cabeza_en_fuerza():
     for n in (3, 4, 5):
         for sem in range(1, 5):
             semana = b.construir_semana(sem, dias=n)
-            for titulo in ("DÍA F1", "DÍA F2"):
+            for titulo in ("FUERZA A", "FUERZA B"):
                 for h, ls in _dia(semana, titulo).bloques:
                     if "FILTRO" in h.upper() or "FINISHER" in h.upper():
                         continue          # ahí se nombran justamente para prohibirlos
@@ -296,6 +324,7 @@ if __name__ == "__main__":
         test_estructura_por_variante,
         test_piso_innegociable_en_toda_variante,
         test_dia_w_solo_en_variante_5,
+        test_el_dia_mas_corto_va_segundo,
         test_semana_fuera_de_rango,
         test_sin_dias_vacios,
         test_progresion_front_squat,

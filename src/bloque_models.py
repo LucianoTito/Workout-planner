@@ -41,6 +41,7 @@ class SeccionBloque:
     ejercicios: list[EjercicioBloque] = field(default_factory=list)  # por semana
     mover_a_e: bool = False     # en la variante de 5 días, la sección entera va al Día E
     header_e: str = ""          # header bajo el que cae en el Día E (default: header)
+    generador: str = ""         # si != "", el motor inyecta líneas generadas (ej. "z2")
 
     @property
     def destino_e(self) -> str:

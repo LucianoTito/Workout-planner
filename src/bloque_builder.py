@@ -48,6 +48,16 @@ class BloqueBuilder:
             data = yaml.safe_load(f)
         self.program = self._parse(data)
 
+        # Catálogo de zona 2: opcional. Si no está, los bloques que no lo usan
+        # siguen funcionando igual (Reconstrucción, por ejemplo).
+        self._z2 = None
+        self._z2_ctx: dict = {}
+        try:
+            from src.z2_selector import Z2Selector
+            self._z2 = Z2Selector(str(Path(base_dir) / "data" / "z2_catalog.yaml"))
+        except (FileNotFoundError, ValueError, ImportError):
+            pass
+
     # ─────────────────────────── parseo del YAML ───────────────────────────
 
     def _parse(self, data: dict) -> BloqueProgram:
@@ -72,6 +82,7 @@ class BloqueBuilder:
                     ejercicios=ejercicios,
                     mover_a_e=bool(sec.get("mover_a_e", False)),
                     header_e=sec.get("header_e", ""),
+                    generador=sec.get("generador", ""),
                 ))
             dias[str(clave)] = DiaBloque(
                 clave=str(clave),
@@ -150,24 +161,43 @@ class BloqueBuilder:
         ]
 
     def resumen_variantes(self) -> list[dict]:
-        """Resumen de las variantes de días, para el menú del CLI."""
+        """
+        Resumen de las variantes de días, para el menú del CLI.
+
+        Cada día viene ya descripto (título, subtítulo y duración) para que el
+        CLI no tenga que traducir a mano claves como "F1" o "Z2B". La duración
+        se pide para esa variante: la de 5 días usa las sesiones cortas cuando
+        el YAML declara `duracion_5`.
+        """
         salida = []
         for n in self.program.dias_disponibles:
             var = self.program.variantes[n]
             salida.append({
                 "n_dias": n,
                 "descripcion": var.descripcion,
-                "titulos": [self.program.dias[c].titulo for c in var.dias],
+                "dias": [
+                    {
+                        "titulo": self.program.dias[c].titulo,
+                        "subtitulo": self.program.dias[c].subtitulo,
+                        "duracion": self.program.dias[c].duracion_para(n),
+                    }
+                    for c in var.dias
+                ],
                 "default": n == self.program.variante_default,
             })
         return salida
 
-    def construir_semana(self, numero_semana: int, dias: int | None = None) -> SemanaBloque:
+    def construir_semana(self, numero_semana: int, dias: int | None = None,
+                         seed: int | None = None,
+                         z2_id: str | None = None) -> SemanaBloque:
         """
         Arma la semana pedida (1..total_semanas) con `dias` días de entrenamiento.
 
         `dias=None` usa `variante_default` del YAML (4 en Reconstrucción), o sea
         el comportamiento histórico.
+
+        `seed` y `z2_id` solo afectan a las secciones con `generador: z2`.
+        Si el bloque no las tiene, se ignoran por completo.
         """
         if not 1 <= numero_semana <= self.total_semanas:
             raise ValueError(
@@ -182,6 +212,8 @@ class BloqueBuilder:
         # Secciones que se mudan al Día E, acumuladas por header de destino.
         # dict conserva orden de inserción → refleja el orden de aparición en A, B, D.
         pendientes_e: dict[str, SeccionBloque] = {}
+
+        self._z2_ctx = {"semana": numero_semana, "seed": seed, "forzar_id": z2_id}
 
         dias_semana: dict[str, DiaSemana] = {}
         for clave in claves:
@@ -249,10 +281,28 @@ class BloqueBuilder:
                     self._acumular_en_e(pendientes_e, sec, sueltos, [])
 
             lineas = sec.lineas(semana, sin_accesorios=aplicar_e)
+            if sec.generador:
+                lineas = lineas + self._lineas_generadas(sec.generador, semana)
             if lineas:                       # omite secciones vacías
                 bloques.append((sec.header, lineas))
 
         return self._armar_dia_semana(dia, bloques, n_dias)
+
+    # ── generadores dinámicos ─────────────────────────────────
+    def _lineas_generadas(self, generador: str, semana: int) -> list[str]:
+        """Líneas que no vienen del YAML del bloque sino de un catálogo aparte."""
+        if generador != "z2":
+            return []
+        if self._z2 is None:
+            return ["(catálogo de zona 2 no disponible)"]
+        ctx = getattr(self, "_z2_ctx", {})
+        sesion = self._z2.seleccionar(
+            semana=semana,
+            semana_deload=self.program.semana_deload,
+            seed=ctx.get("seed"),
+            forzar_id=ctx.get("forzar_id"),
+        )
+        return sesion.to_lines()
 
     def _construir_dia_accesorios(self, clave, semana, n_dias, pendientes_e) -> DiaSemana:
         """Día E: sus propias secciones + todo lo que le mandaron A, B y D."""

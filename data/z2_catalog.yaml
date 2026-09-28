@@ -1,0 +1,301 @@
+# ═══════════════════════════════════════════════════════════════
+# CATÁLOGO DE SESIONES DE ZONA 2 — formato mixto (Luciano)
+# ═══════════════════════════════════════════════════════════════
+#
+# ⚠️  HONESTIDAD SOBRE LA EVIDENCIA
+#
+# Estas sesiones NO están validadas científicamente. No existen estudios que
+# hayan testeado estos formatos concretos. Lo que tiene respaldo es el
+# principio general (trabajo por debajo del primer umbral de lactato) y,
+# parcialmente, el formato intermitente. Todo lo demás es diseño aplicado.
+#
+# Además, una revisión narrativa de 2025 (Sports Medicine, "Much Ado About
+# Zone 2") cuestiona que la zona 2 sea superior a intensidades más altas para
+# adaptaciones mitocondriales y capacidad cardiorrespiratoria. La zona 2 acá
+# se usa por otra razón: es BARATA EN FATIGA. No compite con los días de
+# fuerza ni castiga la rodilla. La intensidad ya la aportan los 3 WODs.
+#
+# ── DÓNDE SE USA ───────────────────────────────────────────────
+# SOLO en el día AERÓBICO del bloque (data/bloques/recomposicion.yaml).
+# El día PACING va siempre en assault bike: es el ancla de la métrica de RPM
+# y no se toca.
+#
+# ── REGLAS DE GOBIERNO (aplican a TODAS las sesiones) ──────────
+# 1. Respiración nasal con boca cerrada. Si se abre la boca, bajá el ritmo.
+# 2. Techo duro 130 ppm. Si pasás de 135, parás y caminás hasta volver a 125.
+# 3. Cargas MUY livianas, reps lentas y deliberadas. Nunca cerca del fallo.
+# 4. No es un WOD suave. Es zona 2 que usa objetos.
+# 5. Si dudás entre ir más rápido o más lento, andá más lento.
+#
+# ── FUENTES DE DERIVA (por qué el pulso se te escapa) ──────────
+# La fatiga muscular local encarece cada repetición y sube el pulso sin que
+# subas el ritmo. Los peores ofensores: estocadas, bisagras, carries,
+# tracciones cargadas y empujes de muchas reps. Cada sesión declara abajo su
+# nivel de riesgo de deriva en el campo `deriva`.
+#
+# ── FILTROS APLICADOS (restricciones de Luciano) ───────────────
+# FUERA de todo el catálogo:
+#   · Press por encima de la cabeza (hombro der · supraespinoso)
+#   · Pistols (rodilla izq)
+#   · Saltos dobles y box jumps (impacto + picos de pulso)
+#   · Trabajo limitado por agarre (rompe la continuidad)
+#   · Correr — NO INCLUIDO: falta confirmar tolerancia de rodilla
+#
+# `unilateral: true` significa que se empieza SIEMPRE por la izquierda.
+# ═══════════════════════════════════════════════════════════════
+
+meta:
+  nombre: "Catálogo Zona 2 mixta"
+  atleta: "Luciano"
+  version: "1.0"
+  fecha: "31/08/2026"
+  pulsaciones_objetivo: "120-130 ppm"
+  techo_duro: "135 ppm"
+  dia_destino: "AERO"
+
+# ═══════════════════════════════════════════════════════════════
+# A · MONOESTRUCTURAL — solo máquinas
+# Deriva mínima. Son las más fáciles de mantener en zona.
+# ═══════════════════════════════════════════════════════════════
+monoestructural:
+
+  - id: z2_mono_01
+    nombre: "Rotación de tres máquinas"
+    duracion: "36-45 min"
+    formato: "3 bloques continuos"
+    deriva: "baja"
+    estructura:
+      - "12-15 min remo · ritmo conversacional"
+      - "12-15 min ski"
+      - "12-15 min assault bike"
+    nota: "Sin pausa entre máquinas, solo el cambio. La variedad rompe el aburrimiento sin tocar el pulso."
+
+  - id: z2_mono_02
+    nombre: "Intermitente 10/4"
+    duracion: "42 min"
+    formato: "3 rondas de 10 min trabajo + 4 min suave"
+    deriva: "muy baja"
+    estructura:
+      - "10 min remo a ritmo de zona 2"
+      - "4 min pedaleo muy suave (recuperación activa)"
+      - "Repetir 3 veces, cambiando de máquina cada ronda"
+    nota: "Relación trabajo/recuperación 1:0,4. El formato intermitente puede reducir la deriva cardiovascular respecto del continuo."
+
+  - id: z2_mono_03
+    nombre: "Escalera de máquinas"
+    duracion: "40 min"
+    formato: "bloques descendentes"
+    deriva: "baja"
+    estructura:
+      - "15 min assault · 3 min suave"
+      - "12 min remo · 3 min suave"
+      - "7 min ski a ritmo apenas mayor, sin pasar 130"
+    nota: "Terminás con el bloque más corto, así que la tentación de acelerar al final tiene menos tiempo para hacer daño."
+
+  - id: z2_mono_04
+    nombre: "EMOM largo de remo"
+    duracion: "40 min"
+    formato: "EMOM 40'"
+    deriva: "baja"
+    estructura:
+      - "Cada minuto: 40s remo continuo + 20s parado"
+      - "Objetivo: mismos metros los 40 minutos"
+    nota: "Las pausas de 20s te dan una lectura limpia del pulso cada minuto. Buena sesión para calibrar tu zona real."
+
+# ═══════════════════════════════════════════════════════════════
+# B · MIXTAS — máquina + movimiento
+# El corazón del catálogo. Deriva moderada: vigilá el reloj.
+# ═══════════════════════════════════════════════════════════════
+mixtas:
+
+  - id: z2_mix_01
+    nombre: "Alternada simple"
+    duracion: "40 min"
+    formato: "EMOM alternado 40'"
+    deriva: "moderada"
+    estructura:
+      - "Min impar: 12-15 cal remo suave"
+      - "Min par: 10 wall balls livianos (4-6 kg) · lentos y controlados"
+    nota: "El wall ball es el movimiento más seguro del catálogo para vos: rodilla y hombro lo toleran bien y la carga es fácil de bajar."
+
+  - id: z2_mix_02
+    nombre: "Circuito conversacional"
+    duracion: "40 min"
+    formato: "5 rondas · sin reloj, ritmo constante"
+    deriva: "moderada"
+    estructura:
+      - "500 m remo"
+      - "20 air squats lentos"
+      - "15 kettlebell swing ruso liviano (12-16 kg)"
+      - "1 min plancha frontal"
+      - "2 min de caminata o pedaleo muy suave entre rondas"
+    nota: "El swing es bisagra: es lo que más te va a subir el pulso. Si te vas de 130, hacé 10 en vez de 15."
+
+  - id: z2_mix_03
+    nombre: "Bloques de 10 con movimiento"
+    duracion: "45 min"
+    formato: "3 bloques de 10 min + 5 min suave"
+    deriva: "moderada"
+    estructura:
+      - "Bloque 1 · 10 min alternando: 15 cal assault / 10 push-ups lentos"
+      - "Bloque 2 · 10 min alternando: 250 m ski / 12 wall balls"
+      - "Bloque 3 · 10 min alternando: 250 m remo / 20 air squats"
+      - "5 min de máquina muy suave entre bloques"
+    nota: "Push-ups de pocas reps y lentos. El empuje de muchas reps es de los que más deriva generan."
+
+  - id: z2_mix_04
+    nombre: "Trineo y máquina"
+    duracion: "36 min"
+    formato: "6 rondas de 6 min"
+    deriva: "moderada-alta"
+    estructura:
+      - "1 empuje de trineo liviano · 10 m ida y vuelta, a paso de caminata"
+      - "3 min de remo o assault suave"
+      - "Resto de la ronda: caminata hasta que el pulso vuelva a 120"
+    nota: "El trineo es el que más rápido te saca de zona. Va liviano y a paso de caminata. Si el pulso no baja a 120 antes de la ronda siguiente, sacá una ronda."
+
+  - id: z2_mix_05
+    nombre: "Chipper lento"
+    duracion: "40-45 min"
+    formato: "por tareas, sin cronómetro"
+    deriva: "moderada"
+    estructura:
+      - "2000 m remo"
+      - "60 wall balls livianos (en tandas de 10-12)"
+      - "1500 m ski"
+      - "60 air squats (en tandas de 15-20)"
+      - "1000 m remo"
+    nota: "Sin reloj a la vista. El único objetivo es terminarlo sin pasar 130. Fraccionar es parte del diseño, no una falla."
+
+  - id: z2_mix_06
+    nombre: "Core y máquina"
+    duracion: "36 min"
+    formato: "6 rondas de 6 min"
+    deriva: "baja"
+    estructura:
+      - "3 min de máquina a elección"
+      - "40s plancha lateral (alterná lado por ronda, empezá IZQ)"
+      - "10 dead bug por lado"
+      - "Resto de la ronda: caminata suave"
+    unilateral: true
+    nota: "El core casi no mueve el pulso, así que esta sesión es de las más fáciles de mantener en zona. Buena para semanas de fatiga acumulada."
+
+  - id: z2_mix_07
+    nombre: "Kettlebell continuo"
+    duracion: "36 min"
+    formato: "EMOM 36'"
+    deriva: "moderada-alta"
+    estructura:
+      - "Min 1: 10 kettlebell swing ruso liviano"
+      - "Min 2: 12-15 cal remo"
+      - "Min 3: descanso caminando"
+      - "Repetir 12 veces"
+    nota: "Dos bisagras por cada tres minutos es el límite. Si sentís que el pulso sube ronda tras ronda, esa es la deriva: bajá a 8 swings."
+
+  - id: z2_mix_08
+    nombre: "Step-ups y remo"
+    duracion: "40 min"
+    formato: "8 rondas de 5 min"
+    deriva: "moderada"
+    estructura:
+      - "20 step-ups sin peso · cajón 40 cm · alterná pierna, empezá IZQ"
+      - "2 min remo suave"
+      - "Resto de la ronda: caminata"
+    unilateral: true
+    nota: "Sin peso y sin saltar. Subida controlada, bajada controlada. Si la rodilla dice algo, se corta la sesión."
+
+  - id: z2_mix_09
+    nombre: "Doble máquina con core"
+    duracion: "42 min"
+    formato: "6 rondas de 7 min"
+    deriva: "baja"
+    estructura:
+      - "2 min remo"
+      - "2 min assault"
+      - "10 Pallof press por lado con banda liviana (empezá IZQ)"
+      - "Resto de la ronda: caminata suave"
+    unilateral: true
+    nota: "Suma trabajo de antirrotación sin costo de fatiga. Compatible con hacerla el día después de FUERZA A."
+
+  - id: z2_mix_10
+    nombre: "Carry ligero"
+    duracion: "36 min"
+    formato: "6 rondas de 6 min"
+    deriva: "alta"
+    estructura:
+      - "40 m farmer carry liviano, caminando"
+      - "3 min de máquina suave"
+      - "Resto de la ronda: caminata hasta volver a 120"
+    nota: "Los carries están entre los que más deriva generan, por fatiga de agarre y postural. Va liviano de verdad. Si el pulso no baja entre rondas, cambiá a una sesión monoestructural."
+
+# ═══════════════════════════════════════════════════════════════
+# C · BAJO IMPACTO / RECUPERACIÓN
+# Para semanas de fatiga acumulada o el día después de un WOD duro.
+# ═══════════════════════════════════════════════════════════════
+recuperacion:
+
+  - id: z2_rec_01
+    nombre: "Bici y movilidad"
+    duracion: "35 min"
+    formato: "continuo + movilidad"
+    deriva: "muy baja"
+    estructura:
+      - "25 min assault bike muy suave (115-125 ppm)"
+      - "10 min de movilidad de cadera y hombro"
+    nota: "La sesión mínima viable. Sirve como piso cuando la semana viene rota."
+
+  - id: z2_rec_02
+    nombre: "Caminata en cinta con pendiente"
+    duracion: "40 min"
+    formato: "continuo"
+    deriva: "muy baja"
+    estructura:
+      - "40 min a paso de caminata con pendiente · regulá la inclinación para sostener 120-130"
+      - "La pendiente sube el pulso, la velocidad no: si te falta pulso subí inclinación, no ritmo"
+    nota: "Cero impacto para la rodilla y muy fácil de mantener en zona. Si no hay cinta, bici."
+
+  - id: z2_rec_03
+    nombre: "Remo largo con prehab"
+    duracion: "45 min"
+    formato: "continuo + bandas"
+    deriva: "baja"
+    estructura:
+      - "30 min remo continuo"
+      - "Circuito de bandas: rotación externa, band pull-apart, serrato punch, TKE"
+      - "2 vueltas, sin prisa"
+    nota: "Junta la zona 2 con el trabajo de manguito y rodilla. Buena para semanas donde no llegás a hacer todo."
+
+  - id: z2_rec_04
+    nombre: "Bear crawl y máquina"
+    duracion: "32 min"
+    formato: "8 rondas de 4 min"
+    deriva: "moderada"
+    estructura:
+      - "20 m bear crawl lento"
+      - "2 min de máquina suave"
+      - "Resto: caminata"
+    nota: "El bear crawl sube el pulso más de lo que parece. Si te pasás, cortá la distancia a 10 m."
+
+# ═══════════════════════════════════════════════════════════════
+# GUÍA DE SELECCIÓN
+# ═══════════════════════════════════════════════════════════════
+seleccion:
+  por_contexto:
+    semana_cargada: ["recuperacion"]
+    dia_despues_de_wod: ["recuperacion", "monoestructural"]
+    aburrimiento: ["mixtas"]
+    calibrar_zona: ["z2_mono_04"]
+    falta_tiempo: ["z2_rec_01"]
+
+  reglas:
+    - "No repetir la misma sesión dos semanas seguidas."
+    - "Si en la sesión anterior te pasaste de 135 más de dos veces, la siguiente va monoestructural."
+    - "En semana de deload (S4): solo `recuperacion` o `monoestructural`."
+    - "Las de deriva alta o moderada-alta (z2_mix_04, z2_mix_07, z2_mix_10) máximo una vez cada dos semanas."
+
+# ═══════════════════════════════════════════════════════════════
+# PENDIENTES
+# ═══════════════════════════════════════════════════════════════
+pendientes:
+  - "Correr: no está en ninguna sesión. Falta confirmar tolerancia de rodilla."
+  - "Zona real: los 120-130 salen de 220 menos edad, que es una estimación. Si en algún momento accedés a un test de umbral ventilatorio o de lactato, ajustamos el rango."

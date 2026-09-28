@@ -596,6 +596,56 @@ def flujo_ver_pesos():
         f"BS={atleta.rm.get('back_squat_cuadriceps', 0)}kg", style="dim")
 
 
+def clave_visible(titulo: str) -> str:
+    """'DÍA F1' → 'F1'. Es la forma corta que va en la columna Sesiones."""
+    return titulo.replace("DÍA ", "").strip()
+
+
+def enumerar_dias(numeros: list[int]) -> str:
+    """[4, 5] → '4 y 5'.  [3, 4, 5] → '3, 4 y 5'."""
+    if len(numeros) == 1:
+        return str(numeros[0])
+    return f"{', '.join(str(n) for n in numeros[:-1])} y {numeros[-1]}"
+
+
+def leyenda_dias(variantes) -> None:
+    """
+    Traduce las claves de la columna "Sesiones" (F1, Z2B, A, E) a lo que
+    realmente es cada día, para no tener que adivinar antes de elegir.
+
+    Junta los días de todas las variantes en orden de aparición. La clave sola
+    no alcanza como identidad: en Reconstrucción el "DÍA A" de la variante de 3
+    días es otro día que el de 4 y 5, así que la identidad es (clave, subtítulo)
+    y cada entrada aclara en qué variantes aparece cuando no está en todas.
+    """
+    dias: dict[tuple[str, str], list[int]] = {}
+    for v in variantes:
+        for d in v["dias"]:
+            if not d["subtitulo"]:
+                continue
+            dias.setdefault((clave_visible(d["titulo"]), d["subtitulo"]), []).append(
+                v["n_dias"])
+    if not dias:
+        return
+
+    # Las claves repetidas quedan juntas: en Reconstrucción los dos "A" tienen
+    # que leerse de corrido para que se note que son días distintos.
+    orden = list(dict.fromkeys(clave for clave, _ in dias))
+    entradas = sorted(dias.items(), key=lambda kv: orden.index(kv[0][0]))
+
+    todas = len(variantes)
+    ancho = max(len(clave) for clave, _ in dias)
+    ancho_sub = max(len(sub) for _, sub in dias)
+    head("\n  Qué es cada día:")
+    for (clave, subtitulo), en_variantes in entradas:
+        if len(en_variantes) == todas:
+            say(f"    {clave:<{ancho}}   {subtitulo}", style="dim")
+            continue
+        solo = "solo " if len(en_variantes) == 1 else ""
+        say(f"    {clave:<{ancho}}   {subtitulo:<{ancho_sub}}   "
+            f"({solo}con {enumerar_dias(en_variantes)} días)", style="dim")
+
+
 def pedir_dias_bloque(builder):
     """
     Pregunta cuántos días por semana se entrenan y muestra qué días arma cada
@@ -619,10 +669,13 @@ def pedir_dias_bloque(builder):
     for v in variantes:
         marca = "  ← por defecto" if v["default"] else ""
         tabla.add_row(f"{v['n_dias']}{marca}", v["descripcion"],
-                      " · ".join(t.replace("DÍA ", "") for t in v["titulos"]))
+                      " · ".join(clave_visible(d["titulo"]) for d in v["dias"]))
     console.print(tabla)
 
+    leyenda_dias(variantes)
+
     rango = "/".join(str(o) for o in opciones)
+    say("")
     resp = ask(f"Días ({rango}) [{default}]: ").strip()
     if resp == "":
         return default
@@ -638,8 +691,12 @@ def pedir_dias_bloque(builder):
     # Preview de la distribución antes de generar
     var = next(v for v in variantes if v["n_dias"] == elegido)
     info(f"\n  ℹ️  Con {elegido} días, la semana queda así:")
-    for titulo in var["titulos"]:
-        say(f"    {titulo}")
+    ancho = max(len(d["titulo"]) for d in var["dias"])
+    ancho_sub = max(len(d["subtitulo"]) for d in var["dias"])
+    for d in var["dias"]:
+        sub = d["subtitulo"].ljust(ancho_sub) if d["duracion"] else d["subtitulo"]
+        duracion = f"   {d['duracion']}" if d["duracion"] else ""
+        say(f"    {d['titulo']:<{ancho}}   {sub}{duracion}")
     if elegido != default:
         if ask("¿Confirmar? (s/n): ").strip().lower() != "s":
             err("  ❌ Cancelado")
