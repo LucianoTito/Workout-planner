@@ -1,38 +1,78 @@
-# Instrucciones del proyecto — Workout Planner
+# INSTRUCCIONES DEL PROYECTO — WORKOUT PLANNER
 
-## Quién soy
+---
+
+## 1. Quién soy y en qué idioma trabajamos
 
 Luciano Facundo Tito Cedrón. Backend developer jr. (.NET / C# / SQL Server) y
 entusiasta de Python. Instructor certificado de CrossFit con más de 13 años de
-experiencia. Trabajo y estudio en español, y el código y los comentarios también
-van en español.
+experiencia.
+
+**Todo en español:** las respuestas, el código, los comentarios, los nombres de
+variables y los textos de los YAML.
 
 Este proyecto es mi planificador de entrenamiento: un CLI en Python que arma
 planes periodizados y los exporta a Excel. Lo uso para mí y para mi novia (Brisa).
 
 ---
 
-## Cómo trabajamos
+## 2. Cómo trabajar conmigo acá
 
-**Antes de escribir código, pedime los archivos que necesites.** El repo tiene dos
-motores independientes y es fácil tocar el equivocado. Si vas a modificar algo,
-pedí el módulo y el YAML correspondiente en vez de inferir la estructura.
+**Pedime los archivos que necesites antes de escribir código.** El repo tiene dos
+motores independientes y es fácil inferir mal una estructura. Si vas a tocar algo,
+pedí el módulo y el YAML correspondiente en vez de adivinar el esquema.
 
-**No rompas el motor CrossFit.** `week_builder.py` y sus tests son territorio
-estable. Los bloques nuevos van por el carril data-driven (`bloque_builder.py` +
-`data/bloques/*.yaml`), que existe justamente para no tocarlo.
+**Cuando pido un cambio, detallá exactamente qué archivo vamos a tocar y por qué.**
+No hagas cambios sin confirmar primero.
 
-**Corré los tests antes de darme algo por terminado.** La suite completa son
-cuatro archivos en `tests/`. Si agregás una feature, agregá sus tests. Y si los
-tests son de reglas de seguridad, verificá que efectivamente fallen cuando se
-rompe la regla, no que pasen por vacíos.
+**Código antes de ejecutar.** Cuando modifiques un archivo, mostrame el cambio
+para que lo revise antes de que lo grabes.
+
+**Paso a paso.** Si el cambio es largo, hacelo en bloques chicos y confirmá cada
+uno antes de seguir.
+
+**Tests después de tocar `src/`.** Corré el que corresponda al carril que tocaste,
+o los cinco si no estás seguro:
+
+```bash
+python tests/test_week_builder.py           # motor CrossFit
+python tests/test_rm_calculator.py          # cálculo %RM → kg
+python tests/test_bloque_reconstruccion.py  # bloque viejo (regresión)
+python tests/test_bloque_recomposicion.py   # bloque activo
+python tests/test_cli_dias_bloque.py        # pantalla de días del menú 4
+```
+
+Si algo falla, lo vemos juntos. No lo arregles cambiando el test.
+
+**Excel de prueba.** Cuando toquemos tipografía, colores o layout, generá una
+semana de ejemplo y mostrame cómo quedó.
 
 **Preferí data sobre código.** La gracia del diseño es que cambiar un plan no
-requiera tocar Python. Si algo se puede resolver editando un YAML, se resuelve ahí.
+requiera tocar Python. Si se puede resolver editando un YAML, se resuelve ahí.
 
 ---
 
-## Arquitectura en dos carriles
+## 3. Qué NO hacer sin preguntar
+
+- Tocar `main.py`. Decime primero qué cambio proponés.
+- Tocar el motor CrossFit (`week_builder.py`, `progression_loader.py`,
+  `rm_calculator.py`, `core_selector.py`). Es territorio estable.
+- **Editar `data/bloques/recomposicion.yaml`.** Es el bloque activo y contiene
+  restricciones médicas. Ver sección 6.
+- Modificar tests existentes. Crear archivos de test nuevos sí es libre.
+- Agregar librerías nuevas.
+
+## 4. Qué SÍ hacer libremente
+
+- Editar los YAML de progresiones (`data/progresiones/*.yaml`).
+- Ajustar colores, fuentes y alturas en `excel_exporter.py` (después me mostrás).
+- Crear archivos de test nuevos para features nuevas.
+- Revisar o explicar código si lo pido.
+- Sugerir mejoras y refactors. Primero la propuesta, después el código.
+
+---
+
+## 5. Arquitectura: dos carriles independientes
 
 | | Ciclo CrossFit | Bloques |
 |---|---|---|
@@ -42,9 +82,12 @@ requiera tocar Python. Si algo se puede resolver editando un YAML, se resuelve a
 | Duración | 8 semanas | variable (4 en los actuales) |
 | Exporter | `excel_exporter.py` | `bloque_exporter.py` (reusa los estilos) |
 
-Ambos exportan al mismo formato de Excel: días como columnas, celdas combinadas
-verticalmente cuando el texto es largo, y un área de NOTAS libre al final.
-Temas de color: `rosa` (Brisa) y `arena` (yo).
+El carril de bloques existe justamente para no tocar el motor CrossFit. Todo
+bloque nuevo va por ahí.
+
+Ambos exportan al mismo formato: días como columnas, celdas combinadas
+verticalmente cuando el texto es largo, área de NOTAS libre al final. Temas de
+color: `rosa` (Brisa) y `arena` (yo).
 
 ### Esquema de un bloque
 
@@ -68,32 +111,28 @@ variantes:                     # qué días salen según cuántos se entrene
 variante_default: 4
 ```
 
-Dos mecanismos avanzados, ambos usados en `reconstruccion.yaml`:
-`componer:` arma un día fusionando secciones de otros días por referencia (no
-duplica cargas), y `mover_a_e:` reubica secciones al día de accesorios en la
-variante de 5 días. `recomposicion.yaml` no usa ninguno de los dos.
+Dos mecanismos avanzados, ambos usados en `reconstruccion.yaml`: `componer:`
+arma un día fusionando secciones de otros días por referencia (no duplica
+cargas), y `mover_a_e:` reubica secciones al día de accesorios en la variante de
+5 días. `recomposicion.yaml` no usa ninguno de los dos.
 
----
-
-## Estado actual
-
-Bloques en `data/bloques/`:
+### Bloques existentes
 
 - **`reconstruccion.yaml`** — Bloque Reconstrucción, 4 semanas. Completado en
-  agosto 2026. Se conserva como referencia; no lo modifiques.
+  agosto 2026. Se conserva como referencia. No lo modifiques.
 - **`recomposicion.yaml`** — Bloque 1 · Recomposición, 4 semanas. **El activo.**
-  Arrancó el 31/08/2026. Es el primero de cuatro bloques hasta el verano, con
+  Arrancó el 31/08/2026. Primero de cuatro bloques hasta el verano, con
   reevaluación cada 4 semanas.
 
-El CLI (opción 4) escanea `data/bloques/` y deja elegir el bloque. No hay ningún
-nombre de bloque hardcodeado.
+El CLI (opción 4) escanea `data/bloques/` y deja elegir. No hay nombres de
+bloque hardcodeados.
 
 ---
 
-## Contexto de entrenamiento que el YAML no explica
+## 6. Contexto de entrenamiento — leer antes de sugerir ejercicios
 
 Estas son las razones detrás de las decisiones del bloque activo. Importan
-porque si me sugerís cambios sin conocerlas, vas a sugerir cosas peligrosas.
+porque si sugerís cambios sin conocerlas, vas a sugerir cosas peligrosas.
 
 ### Prioridades, en orden
 
@@ -107,23 +146,27 @@ Rotura parcial del supraespinoso con bursitis, confirmada por resonancia.
 
 - **Fuera:** press de hombro y todas sus variantes (push press, jerk, thruster),
   vuelos laterales, press de banca, fondos, ring dips, muscle-ups.
-- **Tolera bien:** landmine press, wall climbs, dominadas (estrictas y kipping),
-  cruces en polea, push-ups, pushdown.
+- **Tolera bien (confirmado 31/08/2026):** landmine press, wall climbs, dominadas
+  (estrictas y kipping), cruces en polea, push-ups, pushdown, dragon flag,
+  ab roll-out, kb dead bug pullover, overhead kb carry, overhead walk.
+- **Con límite:** el face pull va solo con tensión muy baja. Con más tensión
+  pincha. El serrato punch sí se puede progresar.
+- **Borderline, fuera por ahora:** One Arm OH Kb Sit up.
 - **Regla importante:** *no asumas* qué ejercicios me molestan el hombro.
   Preguntame antes de afirmarlo. Hoy solo tengo pinchazos ocasionales al elevar
-  los brazos sobre la cabeza fuera del gimnasio, y en entrenamiento no duele.
+  los brazos sobre la cabeza fuera del gimnasio; entrenando no duele.
 
 ### Rodilla izquierda
 
 Cirugías de ligamento cruzado y menisco, más artrosis. **El injerto se hizo con
-isquiotibiales (semitendinoso)**, que es la causa estructural de la debilidad
-del femoral izquierdo. Por eso el curl femoral lleva una serie extra del lado
+isquiotibiales (semitendinoso)**, que es la causa estructural de la debilidad del
+femoral izquierdo. Por eso el curl femoral lleva una serie extra del lado
 izquierdo: el objetivo es reducir la brecha, no igualarla.
 
 - Regla de "sin dolor" en todo momento.
 - Tolera bien: wall balls, estocadas, sentadilla y bisagra con carga.
-- Impacto limitado: box jumps y dobles por separado están bien, pero si se
-  juntan en volumen alto en el mismo WOD, al día siguiente pincha.
+- Impacto limitado: box jumps y dobles por separado están bien, pero si se juntan
+  en volumen alto en el mismo WOD, al día siguiente pincha.
 - **Pistols fuera.**
 - En todo trabajo unilateral: empiezo por la izquierda, y la derecha iguala las
   reps de la izquierda aunque pueda más.
@@ -131,8 +174,8 @@ izquierdo: el objetivo es reducir la brecha, no igualarla.
 ### Logística
 
 - Máximo 1:15 por sesión.
-- Entre 3 y 5 sesiones por semana según trabajo y facultad. Los domingos son
-  para mi familia: no entreno.
+- Entre 3 y 5 sesiones por semana según trabajo y facultad. Los domingos son para
+  mi familia: no entreno.
 - Los WODs los elijo yo según los patrones ya trabajados en la semana. El plan
   fija el presupuesto (máximo 3 por semana, ninguno en día de Zona 2), no el
   contenido.
@@ -141,7 +184,7 @@ izquierdo: el objetivo es reducir la brecha, no igualarla.
 
 ---
 
-## Reglas blindadas por tests
+## 7. Reglas blindadas por tests
 
 `tests/test_bloque_recomposicion.py` no solo verifica que el YAML parsee: hace
 fallar el build si alguien rompe una regla de seguridad editando datos.
@@ -154,22 +197,35 @@ fallar el build si alguien rompe una regla de seguridad editando datos.
   press de banca ni fondos.
 
 Si tocás el YAML del bloque activo, corré ese archivo antes de darlo por bueno.
+Si un cambio hace fallar uno de estos tests, **el problema es el cambio, no el
+test.**
 
 ---
 
-## Estilo de los entregables
+## 8. Estilo de los entregables
 
 - **Excel:** una hoja por semana, días como columnas (no filas), celdas
   combinadas y centradas, fuente tamaño 12. Paleta arena: headers `#2B2B2B`,
   bandas doradas `#B8863B`, cremas `#F4ECDD`.
-- **PDF:** una página por sesión, headers claros, tablas con series, reps,
-  tempo, RPE y carga, y recordatorios al pie.
+- **PDF:** una página por sesión, headers claros, tablas con series, reps, tempo,
+  RPE y carga, recordatorios al pie.
 - Los Excel se guardan en Google Drive como pestañas de un Sheets maestro por
   atleta.
 
 ---
 
-## En el horizonte
+## 9. Cómo reportar cuando terminás algo
+
+Decime siempre:
+
+- Qué archivo modificaste.
+- Qué cambió y por qué.
+- Si hay que testear algo específico.
+- Si quedó en borrador o listo para usar.
+
+---
+
+## 10. En el horizonte
 
 - Más bloques data-driven (hipertrofia, fuerza pura) reusando el mismo motor.
 - Perfiles de atleta editables desde el CLI.
